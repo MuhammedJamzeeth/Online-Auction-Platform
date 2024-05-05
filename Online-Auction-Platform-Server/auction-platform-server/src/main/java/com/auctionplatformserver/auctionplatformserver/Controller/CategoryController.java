@@ -29,6 +29,25 @@ public class CategoryController {
     public void deleteCategory(@PathVariable("category_id") Long id){
         categoryRepository.deleteById(id);
     }
+    @PostMapping("/category/add")
+    public ResponseEntity<Category> addCategory(@RequestBody Category category){
+        Category addCategory = categoryService.addCategory(category);
+        return ResponseEntity.ok(addCategory);
+    }
+
+
+    @PutMapping("/category/update/{category_id}")
+    public ResponseEntity<Category> updateCategory(@PathVariable("category_id") Long id, @RequestBody Category category){
+        Category updatedCategory = categoryService.updateCategory(id, category);
+
+        if(updatedCategory == null){
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(updatedCategory);
+    }
+
+
 
 
 

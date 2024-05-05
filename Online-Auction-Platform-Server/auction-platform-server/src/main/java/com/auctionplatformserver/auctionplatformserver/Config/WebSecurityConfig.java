@@ -24,7 +24,9 @@ public class WebSecurityConfig{
     private static final String[] WHITE_LIST_URLS = {
             "/register",
             "/category",
-            "/category/delete/{category_id}"
+            "/category/delete/{category_id}",
+            "/category/add",
+            "/category/update/{category_id}"
 
     };
     private final JwtAuthenticationFilter jwtAuthFilter;
