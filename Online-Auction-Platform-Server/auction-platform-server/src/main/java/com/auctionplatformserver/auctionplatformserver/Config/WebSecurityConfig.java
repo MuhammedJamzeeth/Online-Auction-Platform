@@ -26,7 +26,12 @@ public class WebSecurityConfig{
             "/category",
             "/category/delete/{category_id}",
             "/category/add",
-            "/category/update/{category_id}"
+            "/category/update/{category_id}",
+            "/products",
+            "/products/{id}",
+            "/products/add",
+            "/products/update/{id}",
+            "/products/delete/{id}"
 
     };
     private final JwtAuthenticationFilter jwtAuthFilter;

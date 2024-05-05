@@ -6,6 +6,7 @@ import lombok.Data;
 
 import java.security.PrivateKey;
 import java.text.DecimalFormat;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -16,10 +17,20 @@ public class Product {
     private Long id;
     private String name;
     private String description;
-    private double price;
+
+    @Column(name = "starting_price")
+    private double startingPrice;
+
+    @Column(name = "current_price")
+    private double currentPrice;
+
+    @Column(name = "start_time")
+    private LocalDateTime startTime;
+
+    @Column(name = "end_time")
+    private LocalDateTime endTime;
 
     private String image;
-    private String quantity;
 
 //    @ManyToOne
 //    @JoinColumn(name = "category_id")
