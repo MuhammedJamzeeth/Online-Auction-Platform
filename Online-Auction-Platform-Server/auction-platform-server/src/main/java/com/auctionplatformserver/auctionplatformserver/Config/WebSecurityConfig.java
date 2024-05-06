@@ -25,7 +25,7 @@ public class WebSecurityConfig{
             "/register",
             "/category",
             "/category/delete/{category_id}",
-            "/category/add",
+            "/products/add",
             "/category/update/{category_id}",
             "/products",
             "/products/{id}",

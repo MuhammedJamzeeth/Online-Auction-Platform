@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -34,9 +37,35 @@ public class ProductController {
     }
 
     @PostMapping("/products/add")
-    public ResponseEntity<Product> addProduct(@RequestBody Product product){
-        Product addedProduct = productService.addProduct(product);
-        return ResponseEntity.ok(addedProduct);
+    public ResponseEntity<Product> addProduct(
+            @RequestParam("name") String name,
+            @RequestParam("description") String description,
+            @RequestParam("startingPrice") String startingPrice,
+            @RequestParam("currentPrice") String currentPrice,
+            @RequestParam("startTime") String startTime,
+            @RequestParam("endTime") String endTime,
+//            @RequestParam("selectedCategory") String selectedCategory,
+            @RequestParam("image") MultipartFile image) {
+
+        try {
+            byte[] imageBytes = image.getBytes();
+
+            Product product = new Product();
+            product.setName(name);
+            product.setDescription(description);
+            product.setStartingPrice(Double.parseDouble(startingPrice));
+            product.setCurrentPrice(Double.parseDouble(currentPrice));
+            product.setStartTime(LocalDateTime.parse(startTime));
+            product.setEndTime(LocalDateTime.parse(endTime));
+//            product.setSelectedCategory(selectedCategory);
+            product.setImage(imageBytes);
+
+            Product addedProduct = productService.addProduct(product);
+            return ResponseEntity.ok(addedProduct);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @PutMapping("/products/update/{id}")

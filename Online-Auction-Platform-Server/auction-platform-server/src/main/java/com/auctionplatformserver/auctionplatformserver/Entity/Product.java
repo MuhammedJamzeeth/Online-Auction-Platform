@@ -30,10 +30,12 @@ public class Product {
     @Column(name = "end_time")
     private LocalDateTime endTime;
 
-    private String image;
+    @Lob
+    @Column(name = "product_image", columnDefinition = "LONGBLOB")
+    private byte[] image;
 
 //    @ManyToOne
-//    @JoinColumn(name = "category_id")
+//    @JoinColumn(name = "category_id", nullable = false)
 //    private Category category;
 
 }
