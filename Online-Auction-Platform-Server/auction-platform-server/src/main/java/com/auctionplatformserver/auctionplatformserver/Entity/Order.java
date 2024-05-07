@@ -1,4 +1,5 @@
 package com.auctionplatformserver.auctionplatformserver.Entity;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,17 +7,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Builder
-@Table(name = "Orders")
+@Table(name = "orders")
 public class Order {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_id")
-    private Long orderId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long order_id;
+    private int win_price;
+    private String order_status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
@@ -26,9 +27,4 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(name = "win_price")
-    private int winPrice;
-
-    @Column(name = "order_status", nullable = false)
-    private String orderStatus;
 }
