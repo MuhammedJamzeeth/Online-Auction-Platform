@@ -10,7 +10,7 @@ const Customer = () => {
 
   const fetchCustomers = async () => {
     try {
-        const response = await fetch('http://localhost:8080/getallcustomers');
+        const response = await fetch("http://localhost:8080/api/v1/auth/getallcustomers");
         if (!response.ok) {
             throw new Error('Failed to fetch customers');
         }
@@ -38,11 +38,11 @@ const Customer = () => {
             <tbody>
                 {customers.map((customer, index) => (
                     <tr key={index}>
-                        <td>{customer.cusId}</td>
-                        <td>{customer.cusName}</td>
-                        <td>{customer.cusEmail}</td>
-                        <td>{customer.cusPhone}</td>
-                        <td>{customer.cusAddress}</td>
+                        <td>{customer.id}</td>
+                        <td>{customer.firstName}</td>
+                        <td>{customer.email}</td>
+                        <td>{customer.phoneNumber}</td>
+                        <td>{customer.address}</td>
                     </tr>
                 ))}
             </tbody>
