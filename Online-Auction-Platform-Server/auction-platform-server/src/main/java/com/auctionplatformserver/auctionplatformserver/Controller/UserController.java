@@ -3,6 +3,7 @@ package com.auctionplatformserver.auctionplatformserver.Controller;
 import com.auctionplatformserver.auctionplatformserver.Authentication.AuthenticationRequest;
 import com.auctionplatformserver.auctionplatformserver.Authentication.AuthenticationService;
 import com.auctionplatformserver.auctionplatformserver.Authentication.RegisterRequest;
+import com.auctionplatformserver.auctionplatformserver.Entity.User;
 import com.auctionplatformserver.auctionplatformserver.Repository.UserRepository;
 import com.auctionplatformserver.auctionplatformserver.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import java.util.List;
 
 
 @RestController
@@ -21,6 +22,7 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+    private UserService userService;
     private final AuthenticationManager authenticationManager;
     private final AuthenticationService authenticationService;
 
@@ -71,5 +73,8 @@ public class UserController {
 
     }
 
-
+    @GetMapping("/getallcustomers")
+    public List<User> getAllCustomers() {
+        return userService.getAllCustomers();
+    }
 }

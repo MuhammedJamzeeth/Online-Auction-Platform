@@ -1,10 +1,13 @@
 package com.auctionplatformserver.auctionplatformserver.Service;
 
+import com.auctionplatformserver.auctionplatformserver.Entity.Role;
 import com.auctionplatformserver.auctionplatformserver.Entity.User;
 import com.auctionplatformserver.auctionplatformserver.Repository.UserRepository;
 import lombok.Builder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Builder
@@ -24,5 +27,10 @@ public class UserServiceImpl implements UserService{
         userRepository.save(user);
         return userAdd;
 
+    }
+
+    @Override
+    public List<User> getAllCustomers() {
+        return userRepository.findAllByRole(Role.USER);
     }
 }
