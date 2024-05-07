@@ -1,0 +1,132 @@
+/* Category.css */
+
+/* Styles for the app container */
+.app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+  }
+  
+  /* Styles for the add category container */
+  .add-category-container {
+    margin-bottom: 20px;
+    border-radius: 5px;
+
+    
+  }
+  
+  /* Styles for the add category form */
+  .add-category {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .add-category input {
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .add-category button {
+    padding: 8px 16px;
+    margin-right: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .add-category button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Styles for the categories list */
+  .categories {
+    width: 50%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+  }
+  
+  .categories h2 {
+    margin-bottom: 10px;
+  }
+  
+  .categories ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .categories li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  
+  .categories button {
+    padding: 6px 12px;
+    background-color: #1cbaba;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .categories button:hover {
+    background-color: #066060;
+  }
+  
+  /* Styles for the category details */
+  .category-details {
+    width: 50%;
+  }
+  
+  .category-details h2 {
+    margin-bottom: 10px;
+  }
+  
+  .category-details table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .category-details th,
+  .category-details td {
+    border: 1px solid #ccc;
+    padding: 8px;
+  }
+  
+  .category-details th {
+    background-color: #f8f9fa;
+  }
+  
+  .category-details tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  .categories button.delete-button {
+    padding: 6px 12px;
+    background-color: #dc3545; /* Red color */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .categories button.delete-button:hover {
+    background-color: #c82333; /* Darker shade of red on hover */
+  }
+
+  .add-category {
+    transition: transform 0.3s ease-in-out; /* Add animation for sliding */
+    transform: translateY(100%);
+  }
+  
+  .add-category.slide-in {
+    transform: translateY(0); /* Show the form by sliding down */
+  }
+  

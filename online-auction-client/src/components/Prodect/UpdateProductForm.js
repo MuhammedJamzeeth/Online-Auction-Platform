@@ -72,9 +72,11 @@ const UpdateProductForm = ({ product, onUpdate }) => {
       {errors.startTime && <div className="error">{errors.startTime}</div>}
       <input type="datetime-local" placeholder="End Time" value={endTime} onChange={e => setEndTime(e.target.value)} />
       {errors.endTime && <div className="error">{errors.endTime}</div>}
-      <input type="text" placeholder="Image URL" value={image} onChange={e => setImage(e.target.value)} />
-      {errors.image && <div className="error">{errors.image}</div>}
+      {/* <input type="text" placeholder="Image URL" value={image} onChange={e => setImage(e.target.value)} />
+      {errors.image && <div className="error">{errors.image}</div>} */}
       <button type="submit">Update Product</button>
+      <br></br>
+      <br></br>
     </form>
   );
 };

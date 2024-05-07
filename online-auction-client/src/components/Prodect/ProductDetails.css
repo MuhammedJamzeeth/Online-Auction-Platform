@@ -27,4 +27,9 @@
     font-weight: bold;
     color: #007bff;
   }
+
+  .product-image-container{
+    width: 50px; /* Adjust the width as needed */
+    height: auto; 
+  }
   
