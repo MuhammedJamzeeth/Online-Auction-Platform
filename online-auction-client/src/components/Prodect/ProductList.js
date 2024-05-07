@@ -10,6 +10,7 @@ const ProductList = ({ products, onSelectProduct, onDeleteProduct }) => {
       <table className="product-table">
         <thead>
           <tr>
+            <th>Image</th>
             <th>Name</th>
             <th>Current Price</th>
             <th>Start Time</th>
@@ -20,8 +21,9 @@ const ProductList = ({ products, onSelectProduct, onDeleteProduct }) => {
         <tbody>
           {products.map(product => (
             <tr key={product.id}>
+              <td><img src={product.image} alt={product.name} className="product-image" /></td>
               <td>{product.name}</td>
-              <td>${product.currentPrice}</td>
+              <td>Rs.{product.currentPrice}</td>
               <td>{product.startTime}</td>
               <td>{product.endTime}</td>
               <td>
@@ -32,6 +34,7 @@ const ProductList = ({ products, onSelectProduct, onDeleteProduct }) => {
           ))}
         </tbody>
       </table>
+      <br></br>
     </div>
   );
 };

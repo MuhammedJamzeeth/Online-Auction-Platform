@@ -57,4 +57,12 @@
   .product-table td .btn-danger:hover {
     background-color: #c82333;
   }
+
+  /* ProductList.css */
+
+.product-image {
+  width: 50px; /* Adjust the width as needed */
+  height: auto; /* Maintain aspect ratio */
+}
+
   
