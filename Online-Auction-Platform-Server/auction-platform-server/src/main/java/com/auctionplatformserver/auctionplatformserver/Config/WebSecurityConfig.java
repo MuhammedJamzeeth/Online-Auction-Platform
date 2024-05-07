@@ -22,7 +22,18 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 public class WebSecurityConfig{
     private static final String[] WHITE_LIST_URLS = {
-            "/register"
+            "/register",
+            "/category",
+            "/category/delete/{category_id}",
+            "/category/add",
+            "/category/update/{category_id}",
+            "/products",
+            "/products/{id}",
+            "/products/add",
+            "/products/update/{id}",
+            "/products/delete/{id}",
+            "/api/v1/auth/getallcustomers",
+            "/getallcustomers"
     };
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
