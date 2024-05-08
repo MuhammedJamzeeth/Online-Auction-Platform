@@ -27,6 +27,8 @@
         @Column(name = "end_time")
         private LocalDateTime endTime;
 
+        private String selectedCategory;
+
         @Lob
         @Column(name = "product_image", columnDefinition = "LONGBLOB")
         private byte[] image;

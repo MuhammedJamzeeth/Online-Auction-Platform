@@ -1,110 +1,231 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { toast } from 'react-toastify';
+import React, { useState, useEffect } from 'react';
 import './AddProductForm.css';
+import axios from 'axios'; 
 
-const AddProductForm = ({ onSubmit, onClose }) => {
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [startingPrice, setStartingPrice] = useState('');
-  const [currentPrice, setCurrentPrice] = useState('');
-  const [startTime, setStartTime] = useState('');
-  const [endTime, setEndTime] = useState('');
-  const [image, setImage] = useState('');
-  const [errors, setErrors] = useState({});
+const AddProductForm = () => {
+    const [formData, setFormData] = useState({
+        productName: '',
+        productDescription: '',
+        startingPrice: '',
+        currentPrice: '',
+        startTime: '',
+        endTime: '',
+        categoryId: '',
+        categoryName: ''
+     
+    });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    const [errors, setErrors] = useState({});
+    const [showForm, setShowForm] = useState(true);
+    const [categories, setCategories] = useState([]);
 
-    // Validation
-    const newErrors = {};
-    if (!name.trim()) {
-      newErrors.name = 'Name is required';
-    }
-    if (!description.trim()) {
-      newErrors.description = 'Description is required';
-    }
-    if (!startingPrice.trim()) {
-      newErrors.startingPrice = 'Starting Price is required';
-    }
-    if (!currentPrice.trim()) {
-      newErrors.currentPrice = 'Current Price is required';
-    }
-    if (!startTime.trim()) {
-      newErrors.startTime = 'Start Time is required';
-    }
-    if (!endTime.trim()) {
-      newErrors.endTime = 'End Time is required';
-    }
-    if (!image) {
-      newErrors.image = 'Image is required';
-    }
+    useEffect(() => {
+      // Fetch categories from backend Spring Boot API
+      axios.get('http://localhost:8080/category')
+          .then(response => {
+              setCategories(response.data);
+          })
+          .catch(error => {
+              console.error('Error fetching categories:', error);
+          });
+  }, []);
 
-    if (Object.keys(newErrors).length === 0) {
-      try {
-        await onSubmit({ name, description, startingPrice, currentPrice, startTime, endTime, image });
-        // Clear form fields after successful submission
-        setName('');
-        setDescription('');
-        setStartingPrice('');
-        setCurrentPrice('');
-        setStartTime('');
-        setEndTime('');
-        setImage('');
-        toast.success('Product added successfully', { position: 'top-center' });
-      } catch (error) {
-        console.error('Error adding product:', error);
-        toast.error('Failed to add product', { position: 'top-center' });
-      }
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    if (name === 'categoryId') {
+        const selectedCategory = categories.find(category => category.id === value);
+        setFormData({
+            ...formData,
+            [name]: value,
+            categoryName: selectedCategory ? selectedCategory.name : '' // Set categoryName based on selected category
+        });
     } else {
-      setErrors(newErrors);
-      toast.warning('All fields are required', { position: 'top-center' });
+        setFormData({
+            ...formData,
+            [name]: value
+        });
     }
-  };
+};
 
-  return (
-    <form className="add-product-form" onSubmit={handleSubmit}>
-      <h2 className="form-title">Add Product</h2>
-      <div className="form-group">
-        <label htmlFor="name">Name:</label>
-        <input type="text" id="name" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
-        {errors.name && <div className="text-danger">{errors.name}</div>}
-      </div>
-      <div className="form-group">
-        <label htmlFor="description">Description:</label>
-        <input type="text" id="description" placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
-        {errors.description && <div className="text-danger">{errors.description}</div>}
-      </div>
-      <div className="form-group">
-        <label htmlFor="starting-price">Starting Price:</label>
-        <input type="text" id="starting-price" placeholder="Starting Price" value={startingPrice} onChange={(e) => setStartingPrice(e.target.value)} />
-        {errors.startingPrice && <div className="text-danger">{errors.startingPrice}</div>}
-      </div>
-      <div className="form-group">
-        <label htmlFor="current-price">Current Price:</label>
-        <input type="text" id="current-price" placeholder="Current Price" value={currentPrice} onChange={(e) => setCurrentPrice(e.target.value)} />
-        {errors.currentPrice && <div className="text-danger">{errors.currentPrice}</div>}
-      </div>
-      <div className="form-group">
-        <label htmlFor="start-time">Start Time:</label>
-        <input type="datetime-local" id="start-time" value={startTime} onChange={(e) => setStartTime(e.target.value)} />
-        {errors.startTime && <div className="text-danger">{errors.startTime}</div>}
-      </div>
-      <div className="form-group">
-        <label htmlFor="end-time">End Time:</label>
-        <input type="datetime-local" id="end-time" value={endTime} onChange={(e) => setEndTime(e.target.value)} />
-        {errors.endTime && <div className="text-danger">{errors.endTime}</div>}
-      </div>
-      <div className="form-group">
-        <label htmlFor="image-upload">Upload Image:</label>
-        <input type="file" id="image-upload" accept="image/*" onChange={(e) => setImage(e.target.files[0])} />
-        {errors.image && <div className="text-danger">{errors.image}</div>}
-      </div>
-      <button className="submit-button" type="submit">Add Product</button>
-      <br></br>
-      <button className="close-button" type="button" onClick={onClose}>Close</button>
-    </form>
-  );
+    const handleProductImageChange = (e) => {
+        setFormData({
+            ...formData,
+            productImage: e.target.files[0]
+        });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Validation
+        const errors = {};
+        if (!formData.productName) {
+            errors.productName = 'Product name is required';
+        }
+        // Add more validation rules as needed
+        
+        if (Object.keys(errors).length === 0) {
+            // Form is valid, handle submission
+            console.log('Form data:', formData);
+            // Reset form fields
+            setFormData({
+                productName: '',
+                productDescription: '',
+                startingPrice: '',
+                currentPrice: '',
+                startTime: '',
+                endTime: '',
+                categoryId: '',
+                categoryName: '',
+                
+            });
+            setErrors({});
+        } else {
+            // Form is invalid, set errors
+            setErrors(errors);
+        }
+    };
+
+    const handleClose = () => {
+        setShowForm(false);
+    };
+
+    return (
+        <>
+            {showForm && (
+                <div className="card">
+                    <div className="card-header">
+                        <p className="h4 mb-2 text-center">Add Product</p>
+                    </div>
+                    <div className="card-body">
+                        <form className="text-center border border-light p-5" onSubmit={handleSubmit}>
+
+                            <div className='form-group mb-2'>
+                                <label className='form-label'>Product Name:</label>
+                                <input
+                                    type='text'
+                                    placeholder='Product Name'
+                                    name='productName'
+                                    value={formData.productName}
+                                    className='form-control'
+                                    onChange={handleInputChange}
+                                />
+                                {errors.productName && <div className="text-danger">{errors.productName}</div>}
+                            </div>
+
+                            <div className='form-group mb-2'>
+                                <label className='form-label'>Product Description:</label>
+                                <input
+                                    type='text'
+                                    placeholder='Product Description'
+                                    name='productDescription'
+                                    value={formData.productDescription}
+                                    className='form-control'
+                                    onChange={handleInputChange}
+                                />
+                                {errors.productDescription && <div className="text-danger">{errors.productDescription}</div>}
+                            </div>
+
+                            <div className='form-group mb-2'>
+                                <label className='form-label'>Starting Price:</label>
+                                <input
+                                    type='text'
+                                    placeholder='Starting Price'
+                                    name='startingPrice'
+                                    value={formData.startingPrice}
+                                    className='form-control'
+                                    onChange={handleInputChange}
+                                />
+                                {errors.startingPrice && <div className="text-danger">{errors.startingPrice}</div>}
+                            </div>
+
+                            <div className='form-group mb-2'>
+                                <label className='form-label'>Current Price:</label>
+                                <input
+                                    type='text'
+                                    placeholder='Current Price'
+                                    name='currentPrice'
+                                    value={formData.currentPrice}
+                                    className='form-control'
+                                    onChange={handleInputChange}
+                                />
+                                {errors.currentPrice && <div className="text-danger">{errors.currentPrice}</div>}
+                            </div>
+
+                            <div className='form-group mb-2'>
+                                <label className='form-label'>Start Time:</label>
+                                <input
+                                    type='datetime-local'
+                                    name='startTime'
+                                    value={formData.startTime}
+                                    className='form-control'
+                                    onChange={handleInputChange}
+                                />
+                                {errors.startTime && <div className="text-danger">{errors.startTime}</div>}
+                            </div>
+
+
+                             <div className='form-group mb-2'>
+                                <label className='form-label'>End Time:</label>
+                                <input
+                                    type='datetime-local'
+                                    name='endTime'
+                                    value={formData.endTime}
+                                    className='form-control'
+                                    onChange={handleInputChange}
+                                />
+                                {errors.endTime && <div className="text-danger">{errors.endTime}</div>}
+                            </div>
+
+
+
+                            <div className='form-group mb-2'>
+                                <label className='form-label'>Category:</label>
+                                <select
+                                    name='categoryId'
+                                    value={formData.categoryId}
+                                    className='form-control'
+                                    onChange={handleInputChange}
+                                >
+                                    <option value=''>Select category</option>
+                                    {categories.map(category => (
+                                        <option key={category.id} value={category.id}>{category.name} </option>
+                                    ))}
+                                </select>
+                                {errors.categoryId && <div className="text-danger">{errors.categoryId}</div>}
+                            </div>
+
+                            {formData.categoryName && (
+                                <div className="form-group mb-2">
+                                    <label className="form-label">Selected Category:</label>
+                                    <input
+                                        type="text"
+                                        value={formData.categoryId}
+                                        className="form-control"
+                                        disabled
+                                    />
+                                </div>
+                            )}
+
+
+                            {/* Add the rest of the form fields in a similar way */}
+
+                            <div className="custom-file mb-4">
+                              <label className='form-label'>ProductImage:</label>
+                                <input type="file" name="productImage" className="custom-file-input"
+                                    id="customFile" onChange={handleProductImageChange} />
+                                <label className="custom-file-label" htmlFor="customFile">Product Image</label>
+                            </div>
+
+                            <div className="btn-group" role="group" aria-label="Form actions">
+                                <button className="btn btn-info" type="submit">Add</button>
+                                <button className="btn btn-secondary" type="button" onClick={handleClose}>Close</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+        </>
+    );
 };
 
 export default AddProductForm;
