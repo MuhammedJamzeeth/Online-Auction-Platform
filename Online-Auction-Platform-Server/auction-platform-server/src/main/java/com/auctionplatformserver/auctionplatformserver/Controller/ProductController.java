@@ -26,18 +26,15 @@ public class ProductController {
     }
 
     @GetMapping("/products/{id}")
-    public Product getProductById(@PathVariable("id") Long id){
-        return productService.getProductById()
+    public ResponseEntity<Product> getProductById(@PathVariable Long id){
+        Product product = productService.getProductById(id);
+
+        if(product == null){
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(product);
     }
-//    public ResponseEntity<Product> getProductById(@PathVariable Long id){
-//        Product product = productService.getProductById(id);
-//
-//        if(product == null){
-//            return ResponseEntity.notFound().build();
-//        }
-//
-//        return ResponseEntity.ok(product);
-//    }
 
     @PostMapping("/products/add")
     public ResponseEntity<Product> addProduct(
