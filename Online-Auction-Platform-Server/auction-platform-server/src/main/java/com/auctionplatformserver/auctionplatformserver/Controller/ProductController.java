@@ -16,18 +16,25 @@ import java.util.List;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ProductController {
 
-    @Autowired
-    private ProductService productService;
+@Autowired
+private ProductService productService;
 
-    @GetMapping("/products")
-    public ResponseEntity<List<Product>> getAllProducts(){
-        List<Product> products = productService.getAllProducts();
-        return ResponseEntity.ok(products);
+@GetMapping("/products")
+public ResponseEntity<List<Product>> getAllProducts(){
+    List<Product> products = productService.getAllProducts();
+    return ResponseEntity.ok(products);
+}
+
+@GetMapping("/products/{id}")
+public ResponseEntity<Product> getProductById(@PathVariable Long id){
+    Product product = productService.getProductById(id);
+
+    if(product == null){
+        return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/products/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable Long id){
-        Product product = productService.getProductById(id);
+    return ResponseEntity.ok(product);
+}
 
         if(product == null){
             return ResponseEntity.notFound().build();
@@ -47,8 +54,8 @@ public class ProductController {
             @RequestParam("selectedCategory") String selectedCategory,
             @RequestParam("image") MultipartFile image) {
 
-        try {
-            byte[] imageBytes = image.getBytes();
+    try {
+        byte[] imageBytes = image.getBytes();
 
             Product product = new Product();
             product.setName(name);
@@ -60,25 +67,25 @@ public class ProductController {
             product.setSelectedCategory(selectedCategory);
             product.setImage(imageBytes);
 
-            Product addedProduct = productService.addProduct(product);
-            return ResponseEntity.ok(addedProduct);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return ResponseEntity.badRequest().build();
-        }
+        Product addedProduct = productService.addProduct(product);
+        return ResponseEntity.ok(addedProduct);
+    } catch (IOException e) {
+        e.printStackTrace();
+        return ResponseEntity.badRequest().build();
+    }
+}
+
+@PutMapping("/products/update/{id}")
+public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product product){
+    Product updatedProduct = productService.updateProduct(id, product);
+
+    if(updatedProduct == null){
+        return ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/products/update/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product product){
-        Product updatedProduct = productService.updateProduct(id, product);
+    return ResponseEntity.ok(updatedProduct);
 
-        if(updatedProduct == null){
-            return ResponseEntity.notFound().build();
-        }
-
-        return ResponseEntity.ok(updatedProduct);
-
-    }
+}
 
 
     @DeleteMapping("/products/delete/{id}")
