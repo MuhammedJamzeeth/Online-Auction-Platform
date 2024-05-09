@@ -22,8 +22,10 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product getProductById(Long id) {
-        Optional<Product> productOptional = productRepository.findById(id);
-        return productOptional.orElse(null);
+//        Optional<Product> productOptional = productRepository.findById(id);
+//        return productOptional.orElse(null);
+        System.out.println(productRepository.findById(id).get());
+        return productRepository.findById(id).get();
     }
 
     @Override
@@ -32,31 +34,36 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product updateProduct(Long id, Product product) {
+    public Product updateProduct(Long id, Product updateProduct) {
         // Check if the product with the given id exists
         Optional<Product> existingProductOptional = productRepository.findById(id);
 
         if(existingProductOptional.isPresent()) {
             Product existingProduct = existingProductOptional.get();
             // Update the existing product with the new details
-            existingProduct.setName(product.getName());
-            existingProduct.setDescription(product.getDescription());
-            existingProduct.setCurrentPrice(product.getCurrentPrice());
-            existingProduct.setStartTime(product.getStartTime());
-            existingProduct.setEndTime(product.getEndTime());
-            existingProduct.setSelectedCategory(product.getSelectedCategory());
-            existingProduct.setImage(product.getImage());
+            existingProduct.setName(updateProduct.getName());
+            existingProduct.setDescription(updateProduct.getDescription());
+            existingProduct.setCurrentPrice(updateProduct.getCurrentPrice());
+            existingProduct.setStartTime(updateProduct.getStartTime());
+            existingProduct.setEndTime(updateProduct.getEndTime());
+            existingProduct.setSelectedCategory(updateProduct.getSelectedCategory());
+            existingProduct.setImage(updateProduct.getImage());
 
             // Save the updated product
             return productRepository.save(existingProduct);
         } else {
             // If the product does not exist, return null
-            return null;
+            throw new RuntimeException("Product not found with id: " + id);
         }
     }
 
     @Override
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
+    }
+
+    @Override
+    public Product fetchEmployeeById(Long id) {
+        return productRepository.findById(id).get();
     }
 }
