@@ -5,7 +5,6 @@ import com.auctionplatformserver.auctionplatformserver.Authentication.Authentica
 import com.auctionplatformserver.auctionplatformserver.Authentication.RegisterRequest;
 import com.auctionplatformserver.auctionplatformserver.Entity.User;
 import com.auctionplatformserver.auctionplatformserver.Repository.UserRepository;
-import com.auctionplatformserver.auctionplatformserver.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,23 +33,23 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestBody AuthenticationRequest request){
-        if(request.getEmail().isEmpty()){
-            return new ResponseEntity<>("Email cannot be empty", HttpStatus.BAD_REQUEST);
-        }
-        if(request.getPassword().isEmpty()){
-            return new ResponseEntity<>("Password cannot be empty", HttpStatus.BAD_REQUEST);
-        }
-        if(!(userRepository.existsByEmail(request.getEmail()))){
-            return new ResponseEntity<>("Email not find register first", HttpStatus.BAD_REQUEST);
-        }
-        if(!(authenticationService.matchPassword(request.getEmail(), request.getPassword()))){
-            return new ResponseEntity<>("Incorrect password", HttpStatus.UNAUTHORIZED);
-        }
+        public ResponseEntity<?> loginUser(@RequestBody AuthenticationRequest request){
+            if(request.getEmail().isEmpty()){
+                return new ResponseEntity<>("Email cannot be empty", HttpStatus.BAD_REQUEST);
+            }
+            if(request.getPassword().isEmpty()){
+                return new ResponseEntity<>("Password cannot be empty", HttpStatus.BAD_REQUEST);
+            }
+            if(!(userRepository.existsByEmail(request.getEmail()))){
+                return new ResponseEntity<>("Email not find register first", HttpStatus.BAD_REQUEST);
+            }
+            if(!(authenticationService.matchPassword(request.getEmail(), request.getPassword()))){
+                return new ResponseEntity<>("Incorrect password", HttpStatus.UNAUTHORIZED);
+            }
 
-        return ResponseEntity.ok(authenticationService.authenticate(request));
-    }
-    //    @PostMapping("/register")
+            return ResponseEntity.ok(authenticationService.authenticate(request));
+        }
+     //    @PostMapping("/register")
 //    public ResponseEntity<?> registerUser(@RequestBody RegisterRequest registerRequest){
 //
 //        if(registerRequest.getFirstName().isEmpty()){
@@ -65,17 +64,17 @@ public class UserController {
 //        return ResponseEntity.ok(authenticationService.register(registerRequest));
 //
 //    }
-    @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@ModelAttribute RegisterRequest registerRequest){
-        if(userRepository.existsByEmail(registerRequest.getEmail())){
-            return new ResponseEntity<>("Email Already Taken", HttpStatus.BAD_REQUEST);
-        }
-        return ResponseEntity.ok(authenticationService.register(registerRequest));
+        @PostMapping("/register")
+        public ResponseEntity<?> registerUser(@ModelAttribute RegisterRequest registerRequest){
+            if(userRepository.existsByEmail(registerRequest.getEmail())){
+                return new ResponseEntity<>("Email Already Taken", HttpStatus.BAD_REQUEST);
+            }
+            return ResponseEntity.ok(authenticationService.register(registerRequest));
 
-    }
+        }
 
     @GetMapping("/getallcustomers")
     public List<User> getAllCustomers() {
-        return userService.getAllCustomers();
+        return userRepository.findAll();
     }
 }

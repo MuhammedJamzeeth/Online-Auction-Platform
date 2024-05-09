@@ -44,7 +44,7 @@ public class ProductController {
             @RequestParam("currentPrice") String currentPrice,
             @RequestParam("startTime") String startTime,
             @RequestParam("endTime") String endTime,
-//            @RequestParam("selectedCategory") String selectedCategory,
+            @RequestParam("selectedCategory") String selectedCategory,
             @RequestParam("image") MultipartFile image) {
 
         try {
@@ -57,7 +57,7 @@ public class ProductController {
             product.setCurrentPrice(Double.parseDouble(currentPrice));
             product.setStartTime(LocalDateTime.parse(startTime));
             product.setEndTime(LocalDateTime.parse(endTime));
-//            product.setSelectedCategory(selectedCategory);
+            product.setSelectedCategory(selectedCategory);
             product.setImage(imageBytes);
 
             Product addedProduct = productService.addProduct(product);
