@@ -33,7 +33,8 @@ public class WebSecurityConfig{
             "/products/update/{id}",
             "/products/delete/{id}",
             "/api/v1/auth/getallcustomers",
-            "/getallorders"
+            "/getallorders",
+            "/products/pro/{id}"
     };
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
