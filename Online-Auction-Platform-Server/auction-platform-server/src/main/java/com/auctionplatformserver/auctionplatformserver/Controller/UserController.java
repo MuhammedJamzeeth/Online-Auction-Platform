@@ -5,7 +5,6 @@ import com.auctionplatformserver.auctionplatformserver.Authentication.Authentica
 import com.auctionplatformserver.auctionplatformserver.Authentication.RegisterRequest;
 import com.auctionplatformserver.auctionplatformserver.Entity.User;
 import com.auctionplatformserver.auctionplatformserver.Repository.UserRepository;
-import com.auctionplatformserver.auctionplatformserver.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -34,6 +34,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
+<<<<<<< HEAD
     public Product updateProduct(Long id, Product updateProduct) {
         // Check if the product with the given id exists
         Optional<Product> existingProductOptional = productRepository.findById(id);
@@ -54,7 +55,15 @@ public class ProductServiceImpl implements ProductService{
         } else {
             // If the product does not exist, return null
             throw new RuntimeException("Product not found with id: " + id);
+=======
+    public Product updateProduct(Long id, Product product) {
+        if(!productRepository.existsById(id)){
+            return null;
+>>>>>>> parent of fbaf923 (AddProduct)
         }
+
+        product.setId(id);
+        return productRepository.save(product);
     }
 
     @Override
