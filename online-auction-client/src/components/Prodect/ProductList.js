@@ -1,21 +1,26 @@
+// ProductList.js
+
 import React, { useState } from 'react';
 import './ProductList.css';
+import UpdateProductForm from './UpdateProductForm'; // Import UpdateProductForm component
 
-const ProductList = ({ products, onDelete, onChangeName, onChangeDescription, onChangePrice }) => {
-    const [newName, setNewName] = useState('');
-    const [newDescription, setNewDescription] = useState('');
-    const [newPrice, setNewPrice] = useState('');
+const ProductList = ({ products, onDelete }) => {
+    const [selectedProductId, setSelectedProductId] = useState(null);
 
-    const handleNameChange = (e) => {
-        setNewName(e.target.value);
+    const handleDetailsClick = (productId) => {
+        setSelectedProductId(productId);
     };
 
-    const handleDescriptionChange = (e) => {
-        setNewDescription(e.target.value);
+    const handleCloseDetails = () => {
+        setSelectedProductId(null);
     };
 
-    const handlePriceChange = (e) => {
-        setNewPrice(e.target.value);
+    const handleUpdate = (updatedProduct) => {
+        console.log('Updated Product:', updatedProduct);
+    };
+
+    const handleDelete = (productId) => {
+        onDelete(productId); // Call the onDelete function passed as props
     };
 
     return (
@@ -35,47 +40,28 @@ const ProductList = ({ products, onDelete, onChangeName, onChangeDescription, on
                     {products.map(product => (
                         <tr key={product.id}>
                             <td><img alt="" src={`data:image/jpeg;base64,${product.image}`} style={{ width: '100px', height: '100px' }} /></td>
-                            <td>
-                                {product.name}
-                                <br />
-                                <button type="button" className="btn btn-success btn-sm mt-2" data-toggle="modal" data-target={`#exampleModalCenter${product.id}`}>change name</button>
-                                <div className="modal fade" id={`exampleModalCenter${product.id}`} tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                    <div className="modal-dialog modal-dialog-centered" role="document">
-                                        <div className="modal-content">
-                                            <div className="modal-header">
-                                                <h5 className="modal-title" id="exampleModalCenterTitle">Change Product Name</h5>
-                                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div className="modal-body">
-                                                <form onSubmit={(e) => { e.preventDefault(); onChangeName(product.id, newName); }}>
-                                                    <div className="form-group">
-                                                        <label>New Product Name</label>
-                                                        <input type="text" value={newName} onChange={handleNameChange} className="form-control" />
-                                                        <br />
-                                                        <button type="submit" className="btn btn-primary">Submit</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div className="modal-footer">
-                                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td>{product.name}</td>
                             <td>{product.description}</td>
                             <td>Rs{product.currentPrice}</td>
                             <td>
-                                <button className="btn btn-danger" onClick={() => onDelete(product.id)}>Delete</button>
-                                {/* Similarly, add buttons for changing description and price */}
+                                <button className="btn btn-danger" onClick={() => handleDelete(product.id)}>Delete</button>
+                                <br />
+                                <button className="btn btn-primary" onClick={() => handleDetailsClick(product.id)}>Details</button>
+                                {selectedProductId === product.id && (
+                                    <>
+                                        <div className="overlay" />
+                                        <div className="update-form">
+                                            <UpdateProductForm product={product} onUpdate={handleUpdate} selectedProductId={selectedProductId} />
+                                            <button className="btn btn-secondary" onClick={handleCloseDetails}>Close</button>
+                                        </div>
+                                    </>
+                                )}
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-            <br></br>
+            <br />
         </div>
     );
 };
