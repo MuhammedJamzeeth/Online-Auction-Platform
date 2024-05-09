@@ -22,12 +22,13 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
-    private UserService userService;
+    private final UserService userService;
     private final AuthenticationManager authenticationManager;
     private final AuthenticationService authenticationService;
 
 
-    public UserController( AuthenticationManager authenticationManager, AuthenticationService authenticationService) {
+    public UserController(UserService userService, AuthenticationManager authenticationManager, AuthenticationService authenticationService) {
+        this.userService = userService;
         this.authenticationManager = authenticationManager;
         this.authenticationService = authenticationService;
     }

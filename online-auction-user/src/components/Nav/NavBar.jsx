@@ -30,6 +30,7 @@ const NavBar = ({ toggleSideBar }) => {
     { label: "Toys", link: "#" },
   ];
   const [isOpen, setIsOpen] = useState(false);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -46,11 +47,21 @@ const NavBar = ({ toggleSideBar }) => {
         <Image>
           <img src={Logo} alt="logo"></img>
         </Image>
+
+        <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+          <h1
+            style={{
+              paddingLeft: 20,
+            }}
+          >
+            Home
+          </h1>
+        </Link>
         <Dropdown>
           <h1
             onClick={toggleDropdown}
             style={{
-              paddingLeft: 20,
+              paddingLeft: 10,
               cursor: "pointer",
             }}
           >
@@ -89,27 +100,38 @@ const NavBar = ({ toggleSideBar }) => {
         <IconButton>
           <NotificationsNoneOutlinedIcon />
         </IconButton> */}
-        <Link to="/about" style={{ textDecoration: "none", color: "inherit" }}>
-          <h1
-            style={{
-              paddingLeft: 10,
-            }}
-          >
-            Login
-          </h1>
-        </Link>
-        <Link to="/about" style={{ textDecoration: "none", color: "inherit" }}>
-          <h1
-            style={{
-              paddingLeft: 10,
-            }}
-          >
-            Register
-          </h1>
-        </Link>
-        <ProfileWrapper>
-          <Profile />
-        </ProfileWrapper>
+        {user ? (
+          <ProfileWrapper>
+            <Profile />
+          </ProfileWrapper>
+        ) : (
+          <>
+            <Link
+              to="/login"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <h1
+                style={{
+                  paddingLeft: 10,
+                }}
+              >
+                Login
+              </h1>
+            </Link>
+            <Link
+              to="/register"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <h1
+                style={{
+                  paddingLeft: 10,
+                }}
+              >
+                Register
+              </h1>
+            </Link>
+          </>
+        )}
       </NavRight>
     </NavContainer>
   );

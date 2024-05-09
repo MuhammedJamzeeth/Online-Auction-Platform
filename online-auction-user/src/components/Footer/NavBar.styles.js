@@ -4,15 +4,15 @@ import { Colors } from "../../styles/Colors";
 export const NavContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
-  background: ${Colors.colorWhite};
+  background: ${Colors.colorPrimary};
   padding: 10px;
   position: sticky;
   top: 0px;
   z-index: 1000;
   /* border-radius: 15px; */
-  height: 60px;
+  height: 30px;
 
   box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
 `;
@@ -68,7 +68,7 @@ export const Image = styled.div`
 export const ProfileWrapper = styled.div`
   margin: 0 10px;
 
-  // display: none;
+  display: none;
 
   @media screen and (max-width: 1000px) {
     display: block;

@@ -14,6 +14,7 @@ import Cards from "../../components/Card/Card";
 import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
+import FootBar from "../../components/Footer/NavBar";
 
 const Home = () => {
   const images = [
@@ -80,6 +81,7 @@ const Home = () => {
           <Cards></Cards>
         </div>
       </Container>
+      <FootBar></FootBar>
     </>
   );
 };

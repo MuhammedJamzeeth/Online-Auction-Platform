@@ -17,6 +17,7 @@ import Paper from "@mui/material/Paper";
 import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
+import Logo from "../../assets/logo.png";
 
 const Cards = () => {
   const [open, setOpen] = React.useState(false);
@@ -58,7 +59,7 @@ const Cards = () => {
   }, [open]);
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 300 }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -115,12 +116,7 @@ const Cards = () => {
         title="Shrimp and Chorizo Paella"
         subheader="September 14, 2016 "
       />
-      <CardMedia
-        component="img"
-        height="194"
-        image="/static/images/cards/paella.jpg"
-        alt="Paella dish"
-      />
+      <CardMedia component="img" height="194" image={Logo} alt="Paella dish" />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
           This impressive paella is a perfect party dish and a fun meal to cook
