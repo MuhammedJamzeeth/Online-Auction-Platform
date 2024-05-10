@@ -1,10 +1,12 @@
 package com.auctionplatformserver.auctionplatformserver.Service;
 
 import com.auctionplatformserver.auctionplatformserver.Entity.Category;
+import com.auctionplatformserver.auctionplatformserver.Entity.Product;
 import com.auctionplatformserver.auctionplatformserver.Repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,7 +31,7 @@ public class CategoryServiceImpl implements CategoryService{
             return null;
         }
 
-        category.setCategory_id(id);
+
         return categoryRepository.save(category);
     }
 
@@ -37,5 +39,15 @@ public class CategoryServiceImpl implements CategoryService{
     public void deleteCategory(Long id) {
         categoryRepository.deleteById(id);
     }
+
+    @Override
+    public List<Product> getCategoryDetails(Long id) {
+        Category category = categoryRepository.findById(id).orElse(null);
+        if (category != null) {
+            return category.getProducts();
+        }
+        return new ArrayList<>();
+    }
+
 
 }

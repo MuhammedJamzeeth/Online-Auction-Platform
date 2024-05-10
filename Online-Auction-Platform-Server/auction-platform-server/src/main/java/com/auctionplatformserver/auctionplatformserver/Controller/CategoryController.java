@@ -1,6 +1,7 @@
 package com.auctionplatformserver.auctionplatformserver.Controller;
 
 import com.auctionplatformserver.auctionplatformserver.Entity.Category;
+import com.auctionplatformserver.auctionplatformserver.Entity.Product; // Import Product entity
 import com.auctionplatformserver.auctionplatformserver.Repository.CategoryRepository;
 import com.auctionplatformserver.auctionplatformserver.Service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,8 +49,8 @@ public class CategoryController {
         return ResponseEntity.ok(updatedCategory);
     }
 
-
-
-
-
+    @GetMapping("/{id}/details")
+    public List<Product> getCategoryDetails(@PathVariable Long id) {
+        return categoryService.getCategoryDetails(id);
+    }
 }
