@@ -40,14 +40,14 @@ public class CategoryServiceImpl implements CategoryService{
         categoryRepository.deleteById(id);
     }
 
-    @Override
-    public List<Product> getCategoryDetails(Long id) {
-        Category category = categoryRepository.findById(id).orElse(null);
-        if (category != null) {
-            return category.getProducts();
-        }
-        return new ArrayList<>();
-    }
+//    @Override
+//    public List<Product> getCategoryDetails(Long id) {
+//        Category category = categoryRepository.findById(id).orElse(null);
+//        if (category != null) {
+//            return category.getProducts();
+//        }
+//        return new ArrayList<>();
+//    }
 
 
 }

@@ -49,8 +49,8 @@ public class CategoryController {
         return ResponseEntity.ok(updatedCategory);
     }
 
-    @GetMapping("/{id}/details")
-    public List<Product> getCategoryDetails(@PathVariable Long id) {
-        return categoryService.getCategoryDetails(id);
-    }
+//    @GetMapping("/{id}/details")
+//    public List<Product> getCategoryDetails(@PathVariable Long id) {
+//        return categoryService.getCategoryDetails(id);
+//    }
 }

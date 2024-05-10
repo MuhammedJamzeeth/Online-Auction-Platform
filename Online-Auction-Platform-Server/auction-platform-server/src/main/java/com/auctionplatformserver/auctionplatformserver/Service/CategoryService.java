@@ -13,7 +13,7 @@ public interface CategoryService {
 
     Category updateCategory(Long id, Category category);
 
-    List<Product> getCategoryDetails(Long id);
+//    List<Product> getCategoryDetails(Long id);
 
     public void deleteCategory(Long id);
 }
