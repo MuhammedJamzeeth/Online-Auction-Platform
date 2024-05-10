@@ -61,7 +61,6 @@ public class ProductController {
             product.setImage(imageBytes);
 
             Product addedProduct = productService.addProduct(product);
-            System.out.println(addedProduct);
             return ResponseEntity.ok(addedProduct);
         } catch (IOException e) {
             e.printStackTrace();
