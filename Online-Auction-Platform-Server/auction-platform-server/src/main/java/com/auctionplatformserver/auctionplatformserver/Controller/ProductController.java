@@ -3,8 +3,8 @@ package com.auctionplatformserver.auctionplatformserver.Controller;
 import com.auctionplatformserver.auctionplatformserver.Entity.Product;
 import com.auctionplatformserver.auctionplatformserver.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,21 +16,20 @@ import java.util.List;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ProductController {
 
-
     @Autowired
     private ProductService productService;
 
     @GetMapping("/products")
-    public ResponseEntity<List<Product>> getAllProducts() {
+    public ResponseEntity<List<Product>> getAllProducts(){
         List<Product> products = productService.getAllProducts();
         return ResponseEntity.ok(products);
     }
 
     @GetMapping("/products/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable Long id) {
+    public ResponseEntity<Product> getProductById(@PathVariable Long id){
         Product product = productService.getProductById(id);
 
-        if (product == null) {
+        if(product == null){
             return ResponseEntity.notFound().build();
         }
 
@@ -62,6 +61,7 @@ public class ProductController {
             product.setImage(imageBytes);
 
             Product addedProduct = productService.addProduct(product);
+            System.out.println(addedProduct);
             return ResponseEntity.ok(addedProduct);
         } catch (IOException e) {
             e.printStackTrace();
@@ -70,19 +70,24 @@ public class ProductController {
     }
 
     @PutMapping("/products/update/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product product) {
+    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product product){
         Product updatedProduct = productService.updateProduct(id, product);
 
-        if (updatedProduct == null) {
+        if(updatedProduct == null){
             return ResponseEntity.notFound().build();
         }
 
         return ResponseEntity.ok(updatedProduct);
+
     }
 
+
     @DeleteMapping("/products/delete/{id}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long id){
         productService.deleteProduct(id);
+
         return ResponseEntity.noContent().build();
     }
+
+
 }

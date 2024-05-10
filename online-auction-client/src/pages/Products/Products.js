@@ -87,15 +87,13 @@ const Products = () => {
                             <br />
                             <button className="close-button" onClick={handleCloseDetails}>Close</button>
                         </div>
-                        {/* Render UpdateProductForm only if a product is selected */}
-                        {selectedProduct && !showAddProductForm && (
+                        {!showAddProductForm && (
                             <div className="update-form">
                                 <UpdateProductForm product={selectedProduct} />
                             </div>
                         )}
                     </div>
                 )}
-                {/* Render AddProductForm if showAddProductForm is true */}
                 {showAddProductForm && <AddProductForm onSubmit={handleAddProduct} />}
             </div>
         </div>
