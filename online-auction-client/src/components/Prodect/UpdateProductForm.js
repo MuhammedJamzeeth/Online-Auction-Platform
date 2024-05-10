@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './UpdateProductForm.css';
 
-const UpdateProductForm = ({ product, onUpdate }) => {
+const UpdateProductForm = ({ product, onUpdate, onClose }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [startingPrice, setStartingPrice] = useState('');
@@ -57,6 +57,10 @@ const UpdateProductForm = ({ product, onUpdate }) => {
     }
   };
 
+  const handleClose = () => {
+    onClose(UpdateProductForm); // Call the onClose function passed from the parent component
+  };
+
   return (
     <form className="update-product-form" onSubmit={handleSubmit}>
       <h2>Update Product</h2>
@@ -75,6 +79,8 @@ const UpdateProductForm = ({ product, onUpdate }) => {
       {/* <input type="text" placeholder="Image URL" value={image} onChange={e => setImage(e.target.value)} />
       {errors.image && <div className="error">{errors.image}</div>} */}
       <button type="submit">Update Product</button>
+      <br></br>
+      {/* <button type="button" onClick={handleClose}>Close</button> Close button */}
       <br></br>
       <br></br>
     </form>
