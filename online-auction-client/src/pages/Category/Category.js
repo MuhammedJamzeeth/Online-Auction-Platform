@@ -14,7 +14,11 @@ const Category = () => {
     // Fetch categories from backend API
     axios.get('http://localhost:8080/category')
       .then(response => {
-        setCategories(response.data);
+        if (Array.isArray(response.data)) {
+          setCategories(response.data);
+        } else {
+          console.error('Received data is not an array:', response.data);
+        }
       })
       .catch(error => {
         console.error('Error fetching categories:', error);
