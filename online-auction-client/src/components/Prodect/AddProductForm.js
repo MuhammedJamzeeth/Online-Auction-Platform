@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './AddProductForm.css';
 import axios from 'axios'; 
 
-const AddProductForm = () => {
+const AddProductForm = ({ onSubmit }) => {
     const [formData, setFormData] = useState({
         productName: '',
         productDescription: '',
@@ -47,25 +47,25 @@ const AddProductForm = () => {
     }
 };
 
-    const handleProductImageChange = (e) => {
-        setFormData({
-            ...formData,
-            productImage: e.target.files[0]
-        });
-    };
+const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setFormData((prevFormData) => ({
+        ...prevFormData,
+        productImage: file
+    }));
+};
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Validation
         const errors = {};
         if (!formData.productName) {
             errors.productName = 'Product name is required';
         }
         // Add more validation rules as needed
-        
+
         if (Object.keys(errors).length === 0) {
-            // Form is valid, handle submission
-            console.log('Form data:', formData);
+            onSubmit(formData); // Pass form data to parent component
             // Reset form fields
             setFormData({
                 productName: '',
@@ -76,11 +76,10 @@ const AddProductForm = () => {
                 endTime: '',
                 categoryId: '',
                 categoryName: '',
-                
+                productImage: null
             });
             setErrors({});
         } else {
-            // Form is invalid, set errors
             setErrors(errors);
         }
     };
@@ -199,7 +198,7 @@ const AddProductForm = () => {
                                     <label className="form-label">Selected Category:</label>
                                     <input
                                         type="text"
-                                        value={formData.categoryId}
+                                        value={formData.categoryName}
                                         className="form-control"
                                         disabled
                                     />
@@ -209,11 +208,15 @@ const AddProductForm = () => {
 
                             {/* Add the rest of the form fields in a similar way */}
 
-                            <div className="custom-file mb-4">
-                              <label className='form-label'>ProductImage:</label>
-                                <input type="file" name="productImage" className="custom-file-input"
-                                    id="customFile" onChange={handleProductImageChange} />
-                                <label className="custom-file-label" htmlFor="customFile">Product Image</label>
+                            <div className='form-group mb-2'>
+                                <label className='form-label'>Product Image:</label>
+                                <input
+                                    type='file'
+                                    accept='image/*'
+                                    name='productImage'
+                                    className='form-control-file'
+                                    onChange={handleFileChange}
+                                />
                             </div>
 
                             <div className="btn-group" role="group" aria-label="Form actions">

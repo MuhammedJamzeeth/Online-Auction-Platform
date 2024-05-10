@@ -60,16 +60,29 @@ const UpdateProductForm = ({ product, onUpdate }) => {
   return (
     <form className="update-product-form" onSubmit={handleSubmit}>
       <h2>Update Product</h2>
+
+
+      <label htmlFor="endTime">Name</label>
       <input type="text" placeholder="Name" value={name} onChange={e => setName(e.target.value)} />
       {errors.name && <div className="error">{errors.name}</div>}
+
+      <label htmlFor="endTime">Description</label>
       <input type="text" placeholder="Description" value={description} onChange={e => setDescription(e.target.value)} />
       {errors.description && <div className="error">{errors.description}</div>}
+
+      <label htmlFor="endTime">Starting Price</label>
       <input type="text" placeholder="Starting Price" value={startingPrice} onChange={e => setStartingPrice(e.target.value)} />
       {errors.startingPrice && <div className="error">{errors.startingPrice}</div>}
+
+      <label htmlFor="endTime">Current Price</label>
       <input type="text" placeholder="Current Price" value={currentPrice} onChange={e => setCurrentPrice(e.target.value)} />
       {errors.currentPrice && <div className="error">{errors.currentPrice}</div>}
+
+      <label htmlFor="endTime">tart Time</label>
       <input type="datetime-local" placeholder="Start Time" value={startTime} onChange={e => setStartTime(e.target.value)} />
       {errors.startTime && <div className="error">{errors.startTime}</div>}
+
+      
       <input type="datetime-local" placeholder="End Time" value={endTime} onChange={e => setEndTime(e.target.value)} />
       {errors.endTime && <div className="error">{errors.endTime}</div>}
       {/* <input type="text" placeholder="Image URL" value={image} onChange={e => setImage(e.target.value)} />

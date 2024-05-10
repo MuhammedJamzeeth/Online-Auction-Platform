@@ -61,7 +61,7 @@ const Products = () => {
             toast.success('Product added successfully', { position: 'top-right' });
             setShowAddProductForm(false);
         } catch (error) {
-            console.log(formData);
+            console.log(formData)
             console.error('Error adding product:', error);
             toast.error('Failed to add product', { position: 'top-center' });
         }
@@ -87,15 +87,13 @@ const Products = () => {
                             <br />
                             <button className="close-button" onClick={handleCloseDetails}>Close</button>
                         </div>
-                        {/* Render UpdateProductForm only if a product is selected */}
-                        {selectedProduct && !showAddProductForm && (
+                        {!showAddProductForm && (
                             <div className="update-form">
                                 <UpdateProductForm product={selectedProduct} />
                             </div>
                         )}
                     </div>
                 )}
-                {/* Render AddProductForm if showAddProductForm is true */}
                 {showAddProductForm && <AddProductForm onSubmit={handleAddProduct} />}
             </div>
         </div>

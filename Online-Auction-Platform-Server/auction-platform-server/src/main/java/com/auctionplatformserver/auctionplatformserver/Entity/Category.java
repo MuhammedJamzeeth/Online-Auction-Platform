@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name = "category")
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "category_id") // Name of the primary key column in the category table
     private Long categoryId;
 

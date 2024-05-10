@@ -117,7 +117,7 @@
 
 /* ProductList.css */
 
-/* Modal Overlay */
+
 .update-form-overlay {
   position: fixed;
   top: 0;
@@ -154,3 +154,5 @@
   font-size: 18px;
   color: #555;
 }
+
+

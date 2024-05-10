@@ -1,132 +1,141 @@
 /* Category.css */
 
-/* Styles for the app container */
-.app {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 20px;
-  }
-  
-  /* Styles for the add category container */
-  .add-category-container {
-    margin-bottom: 20px;
-    border-radius: 5px;
+.category-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+}
 
-    
-  }
-  
-  /* Styles for the add category form */
-  .add-category {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .add-category input {
-    margin-bottom: 10px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .add-category button {
-    padding: 8px 16px;
-    margin-right: 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .add-category button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Styles for the categories list */
-  .categories {
-    width: 50%;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 10px;
-  }
-  
-  .categories h2 {
-    margin-bottom: 10px;
-  }
-  
-  .categories ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .categories li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 5px;
-  }
-  
-  .categories button {
-    padding: 6px 12px;
-    background-color: #1cbaba;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .categories button:hover {
-    background-color: #066060;
-  }
-  
-  /* Styles for the category details */
-  .category-details {
-    width: 50%;
-  }
-  
-  .category-details h2 {
-    margin-bottom: 10px;
-  }
-  
-  .category-details table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .category-details th,
-  .category-details td {
-    border: 1px solid #ccc;
-    padding: 8px;
-  }
-  
-  .category-details th {
-    background-color: #f8f9fa;
-  }
-  
-  .category-details tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
+.categories {
+  flex: 1;
+}
 
-  .categories button.delete-button {
-    padding: 6px 12px;
-    background-color: #dc3545; /* Red color */
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .categories button.delete-button:hover {
-    background-color: #c82333; /* Darker shade of red on hover */
-  }
+.categories h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
 
-  .add-category {
-    transition: transform 0.3s ease-in-out; /* Add animation for sliding */
-    transform: translateY(100%);
-  }
-  
-  .add-category.slide-in {
-    transform: translateY(0); /* Show the form by sliding down */
-  }
-  
+.categories ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.categories li {
+  margin-bottom: 5px;
+}
+
+.category-button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+/* .categories button:hover {
+  background-color: #45a049;
+} */
+
+.category-details {
+  flex: 2;
+}
+
+.category-details h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.category-details table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.category-details th, .category-details td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.category-details th {
+  background-color: #f2f2f2;
+}
+
+.category-details tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+
+.add-category-button-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.add-category-button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.add-category-form {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  width: 300px;
+}
+
+.add-category-form h3 {
+  margin-bottom: 10px;
+}
+
+.add-category-form input {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-buttons button {
+  padding: 8px 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+}
+
+.categories li {
+  margin-bottom: 10px; /* Add space between each category */
+}
+
+.categories button {
+  margin-right: 10px; /* Add space between delete and category buttons */
+}
+
+.delete-button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+
+}
