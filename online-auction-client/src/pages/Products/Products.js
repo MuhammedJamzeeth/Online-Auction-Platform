@@ -50,19 +50,8 @@ const Products = () => {
         }
     };
 
-    const handleAddProduct = async newProduct => {
+    const handleAddProduct = async formData => {
         try {
-            const formData = new FormData();
-            formData.append('productName', newProduct.productName);
-            formData.append('productDescription', newProduct.productDescription);
-            formData.append('startingPrice', newProduct.startingPrice);
-            formData.append('currentPrice', newProduct.currentPrice);
-            formData.append('startTime', newProduct.startTime);
-            formData.append('endTime', newProduct.endTime);
-            formData.append('categoryId', newProduct.categoryId);
-            formData.append('selectedCategory', newProduct.categoryName);
-            formData.append('productImage', newProduct.productImage);
-    
             const response = await axios.post('http://localhost:8080/products/add', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -72,6 +61,7 @@ const Products = () => {
             toast.success('Product added successfully', { position: 'top-right' });
             setShowAddProductForm(false);
         } catch (error) {
+            console.log(formData);
             console.error('Error adding product:', error);
             toast.error('Failed to add product', { position: 'top-center' });
         }
@@ -104,7 +94,7 @@ const Products = () => {
                         )}
                     </div>
                 )}
-                {showAddProductForm && <AddProductForm onSubmit={handleAddProduct} onClose={() => setShowAddProductForm(false)} />}
+                {showAddProductForm && <AddProductForm onSubmit={handleAddProduct} />}
             </div>
         </div>
     );

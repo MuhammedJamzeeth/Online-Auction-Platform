@@ -9,18 +9,15 @@ const Category = () => {
   const [newCategoryName, setNewCategoryName] = useState('');
   const [newCategoryDescription, setNewCategoryDescription] = useState('');
   const [showAddForm, setShowAddForm] = useState(false);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     // Fetch categories from backend API
     axios.get('http://localhost:8080/category')
       .then(response => {
         setCategories(response.data);
-        setError(null); // Reset error state on successful fetch
       })
       .catch(error => {
         console.error('Error fetching categories:', error);
-        setError(error); // Set error state to provide more information about what went wrong
       });
   }, []);
 
@@ -73,7 +70,7 @@ const Category = () => {
       <div className="add-category-container">
         <div className={`add-category ${showAddForm ? 'slide-in' : ''}`}>
           {!showAddForm ? (
-            <button className="add-button" onClick={() => setShowAddForm(true)}>Add Category</button>
+            <button onClick={() => setShowAddForm(true)}>Add Category</button>
           ) : (
             <div>
               <input
@@ -90,8 +87,8 @@ const Category = () => {
                 onChange={(e) => setNewCategoryDescription(e.target.value)}
               />
               <br></br>
-              <button className="save-button" onClick={handleAddCategory}>Save</button>
-              <button className="cancel-button" onClick={() => setShowAddForm(false)}>Cancel</button>
+              <button onClick={handleAddCategory}>Save</button>
+              <button onClick={() => setShowAddForm(false)}>Cancel</button>
             </div>
           )}
         </div>
@@ -99,9 +96,9 @@ const Category = () => {
       <div className="categories">
         <h2>Categories</h2>
         <ul>
-          {categories.length > 0 && categories.map(category => (
+          {categories.map(category => (
             <li key={category.id}>
-              <button className="category-button" onClick={() => handleCategoryClick(category.id)}>{category.name}</button>
+              <button onClick={() => handleCategoryClick(category.id)}>{category.name}</button>
               <button className="delete-button" onClick={() => handleDeleteCategory(category.id)}>Delete</button>
             </li>
           ))}
@@ -109,7 +106,26 @@ const Category = () => {
       </div>
       <div className="category-details">
         <h2>Category Product Details</h2>
-        {/* Display category details here */}
+        {selectedCategory && (
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                {/* Add more table headers as needed */}
+              </tr>
+            </thead>
+            <tbody>
+              {categoryDetails.map(product => (
+                <tr key={product.id}>
+                  <td>{product.name}</td>
+                  <td>{product.description}</td>
+                  {/* Add more table cells for other product details */}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   );
