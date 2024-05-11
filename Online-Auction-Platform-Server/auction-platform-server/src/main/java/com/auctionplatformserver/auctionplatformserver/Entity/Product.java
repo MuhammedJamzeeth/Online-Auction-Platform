@@ -27,13 +27,13 @@
         @Column(name = "end_time")
         private LocalDateTime endTime;
 
-        private String selectedCategory;
+//        private String selectedCategory;
+
+        @ManyToOne(fetch = FetchType.LAZY)
+        @JoinColumn(name = "category_id") // Name of the foreign key column in the product table
+        private Category category;
 
         @Lob
         @Column(name = "product_image", columnDefinition = "LONGBLOB")
         private byte[] image;
-
-        @ManyToOne
-        @JoinColumn(name = "category_id", nullable = false)
-        private Category category;
     }

@@ -22,17 +22,18 @@ const Category = () => {
       .catch(error => {
         console.error('Error fetching categories:', error);
       });
+      
   }, []);
 
-  const handleCategoryClick = (categoryId) => {
-    axios.get(`http://your-backend-api/category/${categoryId}/details`)
+  const handleCategoryClick = (categoryName) => {
+    axios.get(`http://localhost:8080/category/${categoryName}`)
       .then(response => {
         setCategoryDetails(response.data); // Save category details in state
       })
       .catch(error => {
         console.error('Error fetching category details:', error);
       });
-    setSelectedCategory(categoryId);
+    setSelectedCategory(categoryName);
   };
 
   const handleAddCategory = () => {

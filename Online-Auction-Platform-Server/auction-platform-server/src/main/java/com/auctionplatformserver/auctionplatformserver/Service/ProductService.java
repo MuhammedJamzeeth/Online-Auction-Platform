@@ -5,6 +5,9 @@ import com.auctionplatformserver.auctionplatformserver.Entity.Product;
 import java.util.List;
 
 public interface ProductService {
+
+    List<Product> getProductsByCategory(String categoryName);
+
     List<Product> getAllProducts();
 
     Product getProductById(Long id);
@@ -13,6 +16,6 @@ public interface ProductService {
 
     Product updateProduct(Long id, Product product);
 
-    List<Product> findAllBySelectedCategory(String categoryName);
+//    List<Product> findAllBySelectedCategory(String categoryName);
     void deleteProduct(Long id);
 }

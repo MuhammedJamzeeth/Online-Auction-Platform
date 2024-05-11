@@ -11,8 +11,19 @@ import java.util.Optional;
 @Service
 public class ProductServiceImpl implements ProductService {
 
+
+    private final ProductRepository productRepository;
+
     @Autowired
-    private ProductRepository productRepository;
+    public ProductServiceImpl(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
+
+
+    @Override
+    public List<Product> getProductsByCategory(String categoryName) {
+        return productRepository.findByCategoryName(categoryName);
+    }
 
     @Override
     public List<Product> getAllProducts() {
@@ -43,7 +54,7 @@ public class ProductServiceImpl implements ProductService {
             existingProduct.setCurrentPrice(updateProduct.getCurrentPrice());
             existingProduct.setStartTime(updateProduct.getStartTime());
             existingProduct.setEndTime(updateProduct.getEndTime());
-            existingProduct.setSelectedCategory(updateProduct.getSelectedCategory());
+//            existingProduct.setSelectedCategory(updateProduct.getSelectedCategory());
             existingProduct.setImage(updateProduct.getImage());
 
             return productRepository.save(existingProduct);
@@ -57,10 +68,10 @@ public class ProductServiceImpl implements ProductService {
 //        return productRepository.findByCategory_Id(categoryId);
 //    }
 
-    @Override
-    public List<Product> findAllBySelectedCategory(String categoryName) {
-        return productRepository.findAllBySelectedCategory(categoryName);
-    }
+//    @Override
+//    public List<Product> findAllBySelectedCategory(String categoryName) {
+//        return productRepository.findAllBySelectedCategory(categoryName);
+//    }
 
 
     @Override
