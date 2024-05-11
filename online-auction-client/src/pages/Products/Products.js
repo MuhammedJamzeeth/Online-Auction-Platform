@@ -46,7 +46,6 @@ const Products = () => {
             toast.error('Failed to update product', { position: 'top-center' });
         }
     };
-    
 
     const handleDeleteProduct = async productId => {
         const confirmDelete = window.confirm('Are you sure you want to delete this product?');
@@ -64,22 +63,22 @@ const Products = () => {
         }
     };
 
-    // const handleAddProduct = async formData => {
-    //     try {
-    //         const response = await axios.post('http://localhost:8080/products/add', formData, {
-    //             headers: {
-    //                 'Content-Type': 'multipart/form-data'
-    //             }
-    //         });
-    //         setProducts([...products, response.data]);
-    //         toast.success('Product added successfully', { position: 'top-right' });
-    //         setShowAddProductForm(false);
-    //     } catch (error) {
-    //         console.log(formData)
-    //         console.error('Error adding product:', error);
-    //         toast.error('Failed to add product', { position: 'top-center' });
-    //     }
-    // };
+    const handleAddProduct = async formData => {
+        try {
+            const response = await axios.post('http://localhost:8080/products/add', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            setProducts([...products, response.data]);
+            toast.success('Product added successfully', { position: 'top-right' });
+            setShowAddProductForm(false);
+            
+        } catch (error) {
+            console.error('Error adding product:', error);
+            toast.error('Failed to add product', { position: 'top-center' });
+        }
+    };
 
     return (
         <div className="products-container">
@@ -103,12 +102,12 @@ const Products = () => {
                         </div>
                         {!showAddProductForm && (
                             <div className="update-form">
-                            <UpdateProductForm product={selectedProduct} onUpdate={handleUpdateProduct} />
-                        </div>
+                                <UpdateProductForm product={selectedProduct} onUpdate={handleUpdateProduct} />
+                            </div>
                         )}
                     </div>
                 )}
-                {showAddProductForm && <AddProductForm  />}
+                {showAddProductForm && <AddProductForm onAdd={handleAddProduct} />}
             </div>
         </div>
     );
