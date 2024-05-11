@@ -30,6 +30,7 @@ public class CategoryController {
     public void deleteCategory(@PathVariable("category_id") Long id){
         categoryRepository.deleteById(id);
     }
+
     @PostMapping("/category/add")
     public ResponseEntity<Category> addCategory(@RequestBody Category category){
         Category addCategory = categoryService.addCategory(category);

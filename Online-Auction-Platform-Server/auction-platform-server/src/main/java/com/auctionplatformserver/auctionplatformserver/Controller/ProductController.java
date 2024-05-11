@@ -3,6 +3,7 @@ package com.auctionplatformserver.auctionplatformserver.Controller;
 import com.auctionplatformserver.auctionplatformserver.Entity.Product;
 import com.auctionplatformserver.auctionplatformserver.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +36,18 @@ public class ProductController {
 
         return ResponseEntity.ok(product);
     }
+
+//    @GetMapping( "/products/category/{categoryId}")
+//    public ResponseEntity<List<Product>> getProductsByCategoryId(@PathVariable Long categoryId) {
+//        List<Product> products = productService.getProductsByCategoryId(categoryId);
+//        if (products.isEmpty()) {
+//            return ResponseEntity.notFound().build();
+//        }
+//        return ResponseEntity.ok(products);
+//    }
+
+
+
 
     @PostMapping("/products/add")
     public ResponseEntity<Product> addProduct(
