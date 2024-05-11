@@ -25,10 +25,10 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping("/category/{categoryName}")
-    public List<Product> getProductsByCategory(@PathVariable String categoryName) {
-        return productService.getProductsByCategory(categoryName);
-    }
+//    @GetMapping("/category/{categoryName}")
+//    public List<Product> getProductsByCategory(@PathVariable String categoryName) {
+//        return productService.getProductsByCategory(categoryName);
+//    }
 
     @GetMapping("/products")
     public ResponseEntity<List<Product>> getAllProducts(){
@@ -57,7 +57,10 @@ public class ProductController {
 //        return ResponseEntity.ok(products);
 //    }
 
-
+    @GetMapping("/products/name/{name}")
+    public List<Product> fetchProductsByCategoryName(@PathVariable("name") String categoryName) {
+        return productService.fetchProductsByCategoryName(categoryName);
+    }
 
 
     @PostMapping("/products/add")
@@ -68,7 +71,7 @@ public class ProductController {
             @RequestParam("currentPrice") String currentPrice,
             @RequestParam("startTime") String startTime,
             @RequestParam("endTime") String endTime,
-            @RequestParam( defaultValue = "Table") String selectedCategory,
+            @RequestParam( defaultValue = "Toys") String selectedCategory,
             @RequestParam( defaultValue = "1") Long categoryId,
             @RequestParam("image") MultipartFile image) {
 

@@ -27,9 +27,9 @@
         @Column(name = "end_time")
         private LocalDateTime endTime;
 
-//        private String selectedCategory;
+        private String selectedCategory;
 
-        @ManyToOne(fetch = FetchType.LAZY)
+        @ManyToOne
         @JoinColumn(name = "category_id") // Name of the foreign key column in the product table
         private Category category;
 

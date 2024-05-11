@@ -15,18 +15,31 @@ const Category = () => {
       .then(response => {
         if (Array.isArray(response.data)) {
           setCategories(response.data);
+        } else if (typeof response.data === 'object') {
+          // Handle case where response.data is an object
+          setCategories([response.data]);
         } else {
-          console.error('Received data is not an array:', response.data);
+          console.error('Received data is not an array or object:', response.data);
         }
       })
       .catch(error => {
         console.error('Error fetching categories:', error);
       });
-      
   }, []);
 
+  const handleClick = (id) => {
+    axios.get(`http://localhost:8080/products/${id}`)
+      .then(response => {
+        setCategoryDetails(response.data); // Update categoryDetails with product details
+      })
+      .catch(error => {
+        console.error('Error fetching products:', error);
+      });
+  }
+
   const handleCategoryClick = (categoryName) => {
-    axios.get(`http://localhost:8080/category/${categoryName}`)
+    console.log(categoryName);
+    axios.get(`http://localhost:8080/products/name/${categoryName}`)
       .then(response => {
         setCategoryDetails(response.data); // Save category details in state
       })
@@ -46,7 +59,8 @@ const Category = () => {
     setNewCategoryDescription('');
   };
 
-  const handleSubmitNewCategory = () => {
+  const handleSubmitNewCategory = (e) => {
+    e.preventDefault();
     axios.post('http://localhost:8080/category/add', { 
       name: newCategoryName,
       description: newCategoryDescription
@@ -80,8 +94,6 @@ const Category = () => {
         console.error('Error deleting category:', error);
       });
   };
-  
-  
 
   return (
     <div className="category-container">
@@ -95,6 +107,7 @@ const Category = () => {
             </li>
           ))}
         </ul>
+       
       </div>
       <div className="category-details">
         <h2>Category Product Details</h2>
@@ -102,15 +115,19 @@ const Category = () => {
           <table>
             <thead>
               <tr>
+                <th>Image</th>
                 <th>Name</th>
                 <th>Description</th>
+                <th>currentPrice</th>
               </tr>
             </thead>
             <tbody>
               {categoryDetails.length > 0 && categoryDetails.map(product => (
                 <tr key={product.id}>
+                  <td><img alt="" src={`data:image/jpeg;base64,${product.image}`} style={{ width: '100px', height: '100px' }} /></td>
                   <td>{product.name}</td>
                   <td>{product.description}</td>
+                  <td>{product.currentPrice}</td>
                 </tr>
               ))}
             </tbody>

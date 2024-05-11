@@ -19,11 +19,11 @@ public class ProductServiceImpl implements ProductService {
         this.productRepository = productRepository;
     }
 
-
-    @Override
-    public List<Product> getProductsByCategory(String categoryName) {
-        return productRepository.findByCategoryName(categoryName);
-    }
+//
+//    @Override
+//    public List<Product> getProductsByCategory(String categoryName) {
+//        return productRepository.findByCategoryName(categoryName);
+//    }
 
     @Override
     public List<Product> getAllProducts() {
@@ -40,7 +40,6 @@ public class ProductServiceImpl implements ProductService {
     public Product addProduct(Product product) {
         return productRepository.save(product);
     }
-
 
 
     @Override
@@ -77,5 +76,9 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
+    }
+
+    public List<Product> fetchProductsByCategoryName(String categoryName) {
+        return productRepository.findByCategoryName(categoryName);
     }
 }

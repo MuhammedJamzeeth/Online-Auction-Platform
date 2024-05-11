@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ProductService {
 
-    List<Product> getProductsByCategory(String categoryName);
+//    List<Product> getProductsByCategory(String categoryName);
 
     List<Product> getAllProducts();
 
@@ -18,4 +18,7 @@ public interface ProductService {
 
 //    List<Product> findAllBySelectedCategory(String categoryName);
     void deleteProduct(Long id);
+
+    public List<Product> fetchProductsByCategoryName(String categoryName);
+
 }

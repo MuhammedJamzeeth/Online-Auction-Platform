@@ -39,8 +39,11 @@ public class WebSecurityConfig{
             "/category*",
             "/category/*",
             "/products/category/{categoryId}",
-            "/product/{categoryName}"
+            "/product/{categoryName}",
+            "/products/name/{name}"
     };
+
+
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
     private final LogoutHandler logoutHandler;
