@@ -26,6 +26,7 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
+
     @GetMapping("/products/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Long id){
         Product product = productService.getProductById(id);
@@ -57,7 +58,8 @@ public class ProductController {
             @RequestParam("currentPrice") String currentPrice,
             @RequestParam("startTime") String startTime,
             @RequestParam("endTime") String endTime,
-            @RequestParam("selectedCategory") String selectedCategory,
+            @RequestParam( defaultValue = "Table") String selectedCategory,
+            @RequestParam( defaultValue = "1") Long categoryId,
             @RequestParam("image") MultipartFile image) {
 
         try {

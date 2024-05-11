@@ -17,11 +17,12 @@ const ProductList = ({ products, onDelete, onChangeName, onChangeDescription, on
     };
 
     const handleDelete = (productId) => {
-        // Make an HTTP DELETE request to your backend API to delete the product
+        
+        console.log(productId);
         axios.delete(`http://localhost:8080/products/delete/${productId}`)
             .then(response => {
-                // Handle success, you might want to refresh the product list or update the state accordingly
-                onDelete(productId); // Trigger onDelete callback to remove the product from the list
+                
+                onDelete(productId); 
             })
             .catch(error => {
                 // Handle error

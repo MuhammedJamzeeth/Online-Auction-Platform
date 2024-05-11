@@ -61,11 +61,15 @@ const Category = () => {
       });
   };
 
-  const handleDeleteCategory = (categoryId) => {
+  const handleDelete = (categoryId) => {
+    if (categoryId === null || categoryId === undefined) {
+      console.error('Category ID is undefined or null.');
+      return;
+    }
+    console.log(categoryId);
     axios.delete(`http://localhost:8080/category/delete/${categoryId}`)
       .then(() => {
-        const updatedCategories = categories.filter(category => category.id !== categoryId);
-        setCategories(updatedCategories);
+        setCategories(prevCategories => prevCategories.filter(category => category.id !== categoryId));
         if (selectedCategory === categoryId) {
           setSelectedCategory(null);
           setCategoryDetails([]);
@@ -75,16 +79,18 @@ const Category = () => {
         console.error('Error deleting category:', error);
       });
   };
+  
+  
 
   return (
     <div className="category-container">
       <div className="categories">
         <h2>Categories</h2>
         <ul>
-          {categories.map(category => (
+          {categories.length > 0 && categories.map(category => (
             <li key={category.id}>
               <button onClick={() => handleCategoryClick(category.id)} className="category-button">{category.name}</button>
-              <button onClick={() => handleDeleteCategory(category.id)} className="delete-button">Delete</button>
+              <button className="btn btn-danger" onClick={() => handleDelete(category.id)}>Delete</button>
             </li>
           ))}
         </ul>
@@ -100,7 +106,7 @@ const Category = () => {
               </tr>
             </thead>
             <tbody>
-              {categoryDetails.map(product => (
+              {categoryDetails.length > 0 && categoryDetails.map(product => (
                 <tr key={product.id}>
                   <td>{product.name}</td>
                   <td>{product.description}</td>

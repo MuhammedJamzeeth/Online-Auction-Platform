@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import './AddProductForm.css';
 import axios from 'axios'; 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const AddProductForm = ({ onSubmit }) => {
+const AddProductForm = () => {
     const [formData, setFormData] = useState({
-        productName: '',
-        productDescription: '',
+        name: '',
+        description: '',
         startingPrice: '',
         currentPrice: '',
         startTime: '',
         endTime: '',
-        categoryId: '', 
-        categoryName: ''
+        // selectedCategory: '', // Add selectedCategory to match backend
+        // categoryId: '', // Add categoryId to match backend
+        image: null // Initialize productImage as null
     });
 
     const [errors, setErrors] = useState({});
@@ -19,64 +22,72 @@ const AddProductForm = ({ onSubmit }) => {
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
-      // Fetch categories from backend Spring Boot API
-      axios.get('http://localhost:8080/category')
-          .then(response => {
-              setCategories(response.data);
-          })
-          .catch(error => {
-              console.error('Error fetching categories:', error);
-          });
+        axios.get('http://localhost:8080/category')
+            .then(response => {
+                setCategories(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching categories:', error);
+            });
     }, []);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        if (name === 'categoryId') {
-            const selectedCategory = categories.find(category => category.id === value);
-            setFormData({
-                ...formData,
-                [name]: value,
-                categoryName: selectedCategory ? selectedCategory.name : ''
-            });
-        } else {
-            setFormData({
-                ...formData,
-                [name]: value
-            });
-        }
+        setFormData({
+            ...formData,
+            [name]: value
+        });
     };
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
-        setFormData((prevFormData) => ({
-            ...prevFormData,
-            productImage: file
-        }));
+        setFormData({
+            ...formData,
+            image: file
+        });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
+        console.log(formData);
         e.preventDefault();
         const errors = {};
-        if (!formData.productName) {
-            errors.productName = 'Product name is required';
-        }
-        // Add more validation rules as needed
+        // Check for required fields
+        const requiredFields = ['name', 'description', 'startingPrice', 'currentPrice', 'startTime', 'endTime', 'image'];
+        requiredFields.forEach(field => {
+            if (!formData[field]) {
+                errors[field] = `${field} is required`;
+                toast.error(`${field} is required`, { position: 'top-right' });
+            }
+        });
 
         if (Object.keys(errors).length === 0) {
-            onSubmit(formData); // Pass form data to parent component
-            // Reset form fields
-            setFormData({
-                productName: '',
-                productDescription: '',
-                startingPrice: '',
-                currentPrice: '',
-                startTime: '',
-                endTime: '',
-                categoryId: '', 
-                categoryName: '',
-                productImage: null
-            });
-            setErrors({});
+            
+            try {
+                const formDataToSend = new FormData();
+                Object.keys(formData).forEach(key => {
+                    formDataToSend.append(key, formData[key]);
+                });
+                const response = await axios.post('http://localhost:8080/products/add', formDataToSend, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+                toast.success('Product added successfully', { position: 'top-right' });
+                // Clear form data after successful submission
+                setFormData({
+                    name: '',
+                    description: '',
+                    startingPrice: '',
+                    currentPrice: '',
+                    startTime: '',
+                    endTime: '',
+                    image: null
+                });
+                setErrors({});
+            } catch (error) {
+                console.error('Error adding product:', error);
+                toast.error('Failed to add product', { position: 'top-center' });
+            }
         } else {
             setErrors(errors);
         }
@@ -86,6 +97,7 @@ const AddProductForm = ({ onSubmit }) => {
         setShowForm(false);
     };
 
+    
     return (
         <>
             {showForm && (
@@ -101,8 +113,8 @@ const AddProductForm = ({ onSubmit }) => {
                                 <input
                                     type='text'
                                     placeholder='Product Name'
-                                    name='productName'
-                                    value={formData.productName}
+                                    name='name'
+                                    value={formData.name}
                                     className='form-control'
                                     onChange={handleInputChange}
                                 />
@@ -114,8 +126,8 @@ const AddProductForm = ({ onSubmit }) => {
                                 <input
                                     type='text'
                                     placeholder='Product Description'
-                                    name='productDescription'
-                                    value={formData.productDescription}
+                                    name='description'
+                                    value={formData.descriptio}
                                     className='form-control'
                                     onChange={handleInputChange}
                                 />
@@ -160,8 +172,7 @@ const AddProductForm = ({ onSubmit }) => {
                                 {errors.startTime && <div className="text-danger">{errors.startTime}</div>}
                             </div>
 
-
-                             <div className='form-group mb-2'>
+                            <div className='form-group mb-2'>
                                 <label className='form-label'>End Time:</label>
                                 <input
                                     type='datetime-local'
@@ -173,44 +184,35 @@ const AddProductForm = ({ onSubmit }) => {
                                 {errors.endTime && <div className="text-danger">{errors.endTime}</div>}
                             </div>
 
-
-
                             <div className='form-group mb-2'>
                                 <label className='form-label'>Category:</label>
                                 <select
                                     name='categoryId'
-                                    value={formData.categoryName}
                                     className='form-control'
-                                    onChange={handleInputChange}
+                                    // onChange={handleInputChange}
                                 >
                                     <option value=''>Select category</option>
-                                    {categories.map(category => (
+                                    <option>Furniture </option>
+                                    <option>Toys</option>
+                                    <option>Books </option>
+                                    <option>Phone </option>
+                                    <option>Computer </option>
+                                    
+                                    
+
+                                    {/* {categories.map(category => (
                                         <option key={category.id} value={category.id}>{category.name}</option>
-                                    ))}
+                                    ))} */}
                                 </select>
                                 {errors.categoryId && <div className="text-danger">{errors.categoryId}</div>}
                             </div>
-
-                            {formData.categoryName && (
-                                <div className="form-group mb-2">
-                                    <label className="form-label">Selected Category:</label>
-                                    <input
-                                        type="text"
-                                        value={formData.categoryId}
-                                        className="form-control"
-                                        disabled
-                                    />
-                                </div>
-                            )}
-
-                            
 
                             <div className='form-group mb-2'>
                                 <label className='form-label'>Product Image:</label>
                                 <input
                                     type='file'
                                     accept='image/*'
-                                    name='productImage'
+                                    name='image'
                                     className='form-control-file'
                                     onChange={handleFileChange}
                                 />

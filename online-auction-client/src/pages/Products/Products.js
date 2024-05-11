@@ -34,6 +34,20 @@ const Products = () => {
         setSelectedProduct(null);
     };
 
+    const handleUpdateProduct = async updatedProductData => {
+        try {
+            const response = await axios.put(`http://localhost:8080/products/update/${updatedProductData.id}`, updatedProductData);
+            const updatedProduct = response.data;
+            setProducts(products.map(product => (product.id === updatedProduct.id ? updatedProduct : product)));
+            setSelectedProduct(null);
+            toast.success('Product updated successfully', { position: 'top-right' });
+        } catch (error) {
+            console.error('Error updating product:', error);
+            toast.error('Failed to update product', { position: 'top-center' });
+        }
+    };
+    
+
     const handleDeleteProduct = async productId => {
         const confirmDelete = window.confirm('Are you sure you want to delete this product?');
 
@@ -50,22 +64,22 @@ const Products = () => {
         }
     };
 
-    const handleAddProduct = async formData => {
-        try {
-            const response = await axios.post('http://localhost:8080/products/add', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-            setProducts([...products, response.data]);
-            toast.success('Product added successfully', { position: 'top-right' });
-            setShowAddProductForm(false);
-        } catch (error) {
-            console.log(formData)
-            console.error('Error adding product:', error);
-            toast.error('Failed to add product', { position: 'top-center' });
-        }
-    };
+    // const handleAddProduct = async formData => {
+    //     try {
+    //         const response = await axios.post('http://localhost:8080/products/add', formData, {
+    //             headers: {
+    //                 'Content-Type': 'multipart/form-data'
+    //             }
+    //         });
+    //         setProducts([...products, response.data]);
+    //         toast.success('Product added successfully', { position: 'top-right' });
+    //         setShowAddProductForm(false);
+    //     } catch (error) {
+    //         console.log(formData)
+    //         console.error('Error adding product:', error);
+    //         toast.error('Failed to add product', { position: 'top-center' });
+    //     }
+    // };
 
     return (
         <div className="products-container">
@@ -89,12 +103,12 @@ const Products = () => {
                         </div>
                         {!showAddProductForm && (
                             <div className="update-form">
-                                <UpdateProductForm product={selectedProduct} />
-                            </div>
+                            <UpdateProductForm product={selectedProduct} onUpdate={handleUpdateProduct} />
+                        </div>
                         )}
                     </div>
                 )}
-                {showAddProductForm && <AddProductForm onSubmit={handleAddProduct} />}
+                {showAddProductForm && <AddProductForm  />}
             </div>
         </div>
     );
