@@ -1,0 +1,28 @@
+/* AddProducts.css */
+
+.add-products-container {
+    display: flex; /* Use flexbox to arrange items horizontally */
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center items horizontally */
+}
+
+.page-title {
+    margin-top: 20px; 
+}
+
+.content {
+    display: flex; 
+    justify-content: left; 
+    width: 100%; 
+    margin-top: 20px; 
+}
+
+.add-product-form {
+    flex: 1; 
+    margin-right: 20px; 
+}
+
+.product-list {
+    flex: 1; 
+    margin-left: 20px; 
+}

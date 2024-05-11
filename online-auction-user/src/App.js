@@ -15,6 +15,7 @@ import Profile from "./components/Profile/Profile";
 import Customer from "./pages/Customer/Customer";
 import Home from "./pages/Home/Home";
 import Bids from "./pages/Bids/Bids";
+import AddProducts from "./pages/AddProducts/AddProducts"
 
 function App() {
   const dispatch = useDispatch();
@@ -44,8 +45,11 @@ function App() {
           <Route path="products" element={<Products />}></Route>
           <Route path="customers" element={<Customer />}></Route>
           <Route path="settings" element={<Profile />}></Route>
+          <Route path="/addProducts" element={<AddProducts />}></Route>
+
         </Route>
         <Route path="/bid" element={<Bids />}></Route>
+        
         <Route
           element={!currentUserValue ? <Login /> : <Navigate to="/" />}
           path="login"

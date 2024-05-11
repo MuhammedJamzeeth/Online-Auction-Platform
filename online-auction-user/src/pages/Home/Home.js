@@ -15,6 +15,7 @@ import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import FootBar from "../../components/Footer/NavBar";
+import AddProducts from "../AddProducts/AddProducts";
 
 const Home = () => {
   const images = [
@@ -81,6 +82,9 @@ const Home = () => {
           <Cards></Cards>
         </div>
       </Container>
+
+      {/* < AddProducts />  */}
+       
       <FootBar></FootBar>
     </>
   );
