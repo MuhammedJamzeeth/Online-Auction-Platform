@@ -6,25 +6,25 @@ import com.auctionplatformserver.auctionplatformserver.Service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-@RequestMapping
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class OrderController {
 
     @Autowired
     private OrderService orderService;
+    private final OrderRepository orderRepository;
 
-    @Autowired
-    private OrderRepository orderRepository;
+    public OrderController(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
 
-    @GetMapping("/orders")
+    @GetMapping("/getallorders")
     public List<Order> getAllOrders() {
-        return orderService.getAllOrders();
+        return orderRepository.findAll();
     }
 }
 
