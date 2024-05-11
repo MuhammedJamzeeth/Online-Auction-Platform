@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './ProductList.css';
 import UpdateProductForm from '../../components/Prodect/UpdateProductForm'; // Import the UpdateProductForm component
+import axios from 'axios';
 
 const ProductList = ({ products, onDelete, onChangeName, onChangeDescription, onChangePrice }) => {
     const [selectedProduct, setSelectedProduct] = useState(null); // State to store the selected product
@@ -13,6 +14,19 @@ const ProductList = ({ products, onDelete, onChangeName, onChangeDescription, on
 
     const handleCloseUpdateForm = () => {
         setShowUpdateForm(false);
+    };
+
+    const handleDelete = (productId) => {
+        // Make an HTTP DELETE request to your backend API to delete the product
+        axios.delete(`http://localhost:8080/products/delete/${productId}`)
+            .then(response => {
+                // Handle success, you might want to refresh the product list or update the state accordingly
+                onDelete(productId); // Trigger onDelete callback to remove the product from the list
+            })
+            .catch(error => {
+                // Handle error
+                console.error('Error deleting product:', error);
+            });
     };
 
     return (
@@ -36,7 +50,7 @@ const ProductList = ({ products, onDelete, onChangeName, onChangeDescription, on
                             <td>{product.description}</td>
                             <td>Rs {product.currentPrice}</td>
                             <td>
-                                <button className="btn btn-danger" onClick={() => onDelete(product.id)}>Delete</button>
+                                <button className="btn btn-danger" onClick={() => handleDelete(product.id)}>Delete</button>
                                 <br></br>
                                 <button type="button" className="btn btn-info" onClick={() => handleDetailsClick(product)}>
                                     Details

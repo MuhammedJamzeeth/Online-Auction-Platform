@@ -10,9 +10,8 @@ const AddProductForm = ({ onSubmit }) => {
         currentPrice: '',
         startTime: '',
         endTime: '',
-        categoryId: '',
+        categoryId: '', 
         categoryName: ''
-     
     });
 
     const [errors, setErrors] = useState({});
@@ -28,33 +27,32 @@ const AddProductForm = ({ onSubmit }) => {
           .catch(error => {
               console.error('Error fetching categories:', error);
           });
-  }, []);
+    }, []);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    if (name === 'categoryId') {
-        const selectedCategory = categories.find(category => category.id === value);
-        setFormData({
-            ...formData,
-            [name]: value,
-            categoryName: selectedCategory ? selectedCategory.name : '' // Set categoryName based on selected category
-        });
-    } else {
-        setFormData({
-            ...formData,
-            [name]: value
-        });
-    }
-};
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        if (name === 'categoryId') {
+            const selectedCategory = categories.find(category => category.id === value);
+            setFormData({
+                ...formData,
+                [name]: value,
+                categoryName: selectedCategory ? selectedCategory.name : ''
+            });
+        } else {
+            setFormData({
+                ...formData,
+                [name]: value
+            });
+        }
+    };
 
-const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setFormData((prevFormData) => ({
-        ...prevFormData,
-        productImage: file
-    }));
-};
-
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            productImage: file
+        }));
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -74,7 +72,7 @@ const handleFileChange = (e) => {
                 currentPrice: '',
                 startTime: '',
                 endTime: '',
-                categoryId: '',
+                categoryId: '', 
                 categoryName: '',
                 productImage: null
             });
@@ -181,13 +179,13 @@ const handleFileChange = (e) => {
                                 <label className='form-label'>Category:</label>
                                 <select
                                     name='categoryId'
-                                    value={formData.categoryId}
+                                    value={formData.categoryName}
                                     className='form-control'
                                     onChange={handleInputChange}
                                 >
                                     <option value=''>Select category</option>
                                     {categories.map(category => (
-                                        <option key={category.id} value={category.id}>{category.name} </option>
+                                        <option key={category.id} value={category.id}>{category.name}</option>
                                     ))}
                                 </select>
                                 {errors.categoryId && <div className="text-danger">{errors.categoryId}</div>}
@@ -198,15 +196,14 @@ const handleFileChange = (e) => {
                                     <label className="form-label">Selected Category:</label>
                                     <input
                                         type="text"
-                                        value={formData.categoryName}
+                                        value={formData.categoryId}
                                         className="form-control"
                                         disabled
                                     />
                                 </div>
                             )}
 
-
-                            {/* Add the rest of the form fields in a similar way */}
+                            
 
                             <div className='form-group mb-2'>
                                 <label className='form-label'>Product Image:</label>

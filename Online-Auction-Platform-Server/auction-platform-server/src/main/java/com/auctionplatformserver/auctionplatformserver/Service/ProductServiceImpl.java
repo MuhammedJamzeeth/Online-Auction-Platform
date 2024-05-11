@@ -50,6 +50,12 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+//    @Override
+//    public List<Product> getProductsByCategoryId(Long categoryId) {
+//        return productRepository.findByCategory_Id(categoryId);
+//    }
+
+
     @Override
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
