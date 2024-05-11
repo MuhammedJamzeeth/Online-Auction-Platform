@@ -36,6 +36,8 @@ public class WebSecurityConfig{
             "/getallorders",
             "/products/pro/{id}",
             "/{id}/details",
+            "/category*",
+            "/category/*",
             "/products/category/{categoryId}",
             "/product/{categoryName}"
     };

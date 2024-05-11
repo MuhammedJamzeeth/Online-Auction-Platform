@@ -22,17 +22,18 @@ const Category = () => {
       .catch(error => {
         console.error('Error fetching categories:', error);
       });
+      
   }, []);
 
-  const handleCategoryClick = (categoryId) => {
-    axios.get(`http://your-backend-api/category/${categoryId}/details`)
+  const handleCategoryClick = (categoryName) => {
+    axios.get(`http://localhost:8080/category/${categoryName}`)
       .then(response => {
         setCategoryDetails(response.data); // Save category details in state
       })
       .catch(error => {
         console.error('Error fetching category details:', error);
       });
-    setSelectedCategory(categoryId);
+    setSelectedCategory(categoryName);
   };
 
   const handleAddCategory = () => {
@@ -89,7 +90,7 @@ const Category = () => {
         <ul>
           {categories.length > 0 && categories.map(category => (
             <li key={category.id}>
-              <button onClick={() => handleCategoryClick(category.id)} className="category-button">{category.name}</button>
+              <button onClick={() => handleCategoryClick(category.name)} className="category-button">{category.name}</button>
               <button className="btn btn-danger" onClick={() => handleDelete(category.id)}>Delete</button>
             </li>
           ))}

@@ -17,8 +17,18 @@ import java.util.List;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ProductController {
 
+
+    private final ProductService productService;
+
     @Autowired
-    private ProductService productService;
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
+    @GetMapping("/category/{categoryName}")
+    public List<Product> getProductsByCategory(@PathVariable String categoryName) {
+        return productService.getProductsByCategory(categoryName);
+    }
 
     @GetMapping("/products")
     public ResponseEntity<List<Product>> getAllProducts(){
@@ -72,7 +82,7 @@ public class ProductController {
             product.setCurrentPrice(Double.parseDouble(currentPrice));
             product.setStartTime(LocalDateTime.parse(startTime));
             product.setEndTime(LocalDateTime.parse(endTime));
-            product.setSelectedCategory(selectedCategory);
+//            product.setSelectedCategory(selectedCategory);
             product.setImage(imageBytes);
 
             Product addedProduct = productService.addProduct(product);
@@ -104,11 +114,11 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/product/{categoryName}")
-    public ResponseEntity<List<Product>> findAllBySelectedCategory(@RequestParam("categoryName") String categoryName) {
-        List<Product> products = productService.findAllBySelectedCategory(categoryName);
-        return ResponseEntity.ok(products);
-    }
+//    @GetMapping("/product/{categoryName}")
+//    public ResponseEntity<List<Product>> findAllBySelectedCategory(@RequestParam("categoryName") String categoryName) {
+//        List<Product> products = productService.findAllBySelectedCategory(categoryName);
+//        return ResponseEntity.ok(products);
+//    }
 }
 
 
