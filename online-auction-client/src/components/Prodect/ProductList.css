@@ -20,6 +20,10 @@
   text-align: left;
 } */
 
+.product-table td{
+  width: 20%;
+}
+
 /* .product-table th {
   background-color: #f2f2f2;
   color: #333;

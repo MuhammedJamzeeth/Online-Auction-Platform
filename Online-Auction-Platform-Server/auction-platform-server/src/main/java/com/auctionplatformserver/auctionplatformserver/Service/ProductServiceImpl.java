@@ -57,6 +57,11 @@ public class ProductServiceImpl implements ProductService {
 //        return productRepository.findByCategory_Id(categoryId);
 //    }
 
+    @Override
+    public List<Product> findAllBySelectedCategory(String categoryName) {
+        return productRepository.findAllBySelectedCategory(categoryName);
+    }
+
 
     @Override
     public void deleteProduct(Long id) {

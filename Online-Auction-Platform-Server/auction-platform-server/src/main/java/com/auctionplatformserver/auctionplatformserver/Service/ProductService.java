@@ -13,6 +13,6 @@ public interface ProductService {
 
     Product updateProduct(Long id, Product product);
 
-
+    List<Product> findAllBySelectedCategory(String categoryName);
     void deleteProduct(Long id);
 }

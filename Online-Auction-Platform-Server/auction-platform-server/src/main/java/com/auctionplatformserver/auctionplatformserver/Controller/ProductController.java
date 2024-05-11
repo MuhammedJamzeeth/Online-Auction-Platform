@@ -104,5 +104,11 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 
-
+    @GetMapping("/product/{categoryName}")
+    public ResponseEntity<List<Product>> findAllBySelectedCategory(@RequestParam("categoryName") String categoryName) {
+        List<Product> products = productService.findAllBySelectedCategory(categoryName);
+        return ResponseEntity.ok(products);
+    }
 }
+
+

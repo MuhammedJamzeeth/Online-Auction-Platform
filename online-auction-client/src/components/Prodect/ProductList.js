@@ -48,7 +48,7 @@ const ProductList = ({ products, onDelete, onChangeName, onChangeDescription, on
                         <tr key={product.id}>
                             <td><img alt="" src={`data:image/jpeg;base64,${product.image}`} style={{ width: '100px', height: '100px' }} /></td>
                             <td>{product.name}</td>
-                            <td>{product.description}</td>
+                            <td className='des'>{product.description}</td>
                             <td>Rs {product.currentPrice}</td>
                             <td>
                                 <button className="btn btn-danger" onClick={() => handleDelete(product.id)}>Delete</button>

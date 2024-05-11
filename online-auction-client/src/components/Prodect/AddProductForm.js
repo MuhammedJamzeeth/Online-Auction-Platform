@@ -51,7 +51,7 @@ const AddProductForm = () => {
         console.log(formData);
         e.preventDefault();
         const errors = {};
-        // Check for required fields
+       
         const requiredFields = ['name', 'description', 'startingPrice', 'currentPrice', 'startTime', 'endTime', 'image'];
         requiredFields.forEach(field => {
             if (!formData[field]) {
@@ -127,7 +127,7 @@ const AddProductForm = () => {
                                     type='text'
                                     placeholder='Product Description'
                                     name='description'
-                                    value={formData.descriptio}
+                                    value={formData.description}
                                     className='form-control'
                                     onChange={handleInputChange}
                                 />
