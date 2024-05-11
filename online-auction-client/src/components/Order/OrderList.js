@@ -10,20 +10,20 @@ export default function OrderList({orders}) {
                     <thead>
                         <tr>
                             <th>Order ID</th>
-                            <th>User ID</th>
-                            <th>Product ID</th>
+                            <th>User Name</th>
+                            <th>Product Name</th>
                             <th>Win Prize</th>
                             <th>Order Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         {orders.map(order => (
-                            <tr key={order.order_id}>
-                                <td>{order.order_id}</td>
-                                <td>{order.user_id}</td>
-                                <td>{order.product_id}</td>
-                                <td>{order.win_price}</td>
-                                <td>{order.order_status}</td>
+                            <tr key={order.orderId}>
+                                <td>{order.orderId}</td>
+                                <td>{order.userName}</td>
+                                <td>{order.productName}</td>
+                                <td>{order.winPrice}</td>
+                                <td>{order.orderStatus}</td>
                             </tr>
                         ))}
                     </tbody>

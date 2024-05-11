@@ -5,18 +5,18 @@ import OrderList from '../../components/Order/OrderList';
 const Orders = () => {
     const [orders, setOrders] = useState([]);
 
-    useEffect(() => {
-        fetchOrders();
-    }, []);
-
     const fetchOrders = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/getallorders');
+            const response = await axios.get('http://localhost:8080/getallorders/orders');
             setOrders(response.data);
         } catch (error) {
             console.error('Error fetching Orders:', error);
         }
     };
+
+    useEffect(() => {
+        fetchOrders();
+    }, []);
 
     return (
         <>
