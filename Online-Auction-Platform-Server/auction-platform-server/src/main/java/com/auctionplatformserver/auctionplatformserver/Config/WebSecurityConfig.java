@@ -49,6 +49,8 @@ public class WebSecurityConfig{
         .authorizeHttpRequests(requests -> requests
                 .requestMatchers(WHITE_LIST_URLS).permitAll()
                 .requestMatchers("/api/v1/auth/**").permitAll()
+                .requestMatchers("/getallorders/**").permitAll()
+                .requestMatchers("/getallorders/**").permitAll()
                 .anyRequest().authenticated()
         ).sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authenticationProvider(authenticationProvider)

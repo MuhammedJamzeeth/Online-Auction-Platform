@@ -16,10 +16,10 @@
         private String description;
 
         @Column(name = "starting_price")
-        private double startingPrice;
+        private Double startingPrice;
 
         @Column(name = "current_price")
-        private double currentPrice;
+        private Double currentPrice;
 
         @Column(name = "start_time")
         private LocalDateTime startTime;
