@@ -114,7 +114,6 @@ const Home = () => {
       </Container>
 
       {/* < AddProducts />  */}
-
       <FootBar></FootBar>
     </>
   );

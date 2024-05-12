@@ -15,7 +15,8 @@ import Profile from "./components/Profile/Profile";
 import Customer from "./pages/Customer/Customer";
 import Home from "./pages/Home/Home";
 import Bids from "./pages/Bids/Bids";
-import AddProducts from "./pages/AddProducts/AddProducts"
+import AddProducts from "./pages/AddProducts/AddProducts";
+import AboutUs from "./pages/AboutUs/AboutUs";
 
 function App() {
   const dispatch = useDispatch();
@@ -40,16 +41,16 @@ function App() {
           element={<Home />}
         >
           <Route index path="/" element={<Dashboard />}></Route>
+          
           <Route path="category" element={<Category />}></Route>
           <Route path="orders" element={<Orders />}></Route>
           <Route path="products" element={<Products />}></Route>
           <Route path="customers" element={<Customer />}></Route>
           <Route path="settings" element={<Profile />}></Route>
           <Route path="/addProducts" element={<AddProducts />}></Route>
-
         </Route>
         <Route path="/bid" element={<Bids />}></Route>
-        
+        <Route path="about" element={<AboutUs/>}/> <Route/>
         <Route
           element={!currentUserValue ? <Login /> : <Navigate to="/" />}
           path="login"
