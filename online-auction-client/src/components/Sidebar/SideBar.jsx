@@ -56,11 +56,11 @@ const SideBar = ({ isOpen, toggleSideBar }) => {
           title={"Customers"}
           Icon={<AccountCircleOutlinedIcon />}
         />
-        <SideBarItems
+        {/* <SideBarItems
           to={"settings"}
           title={"Profile settings"}
           Icon={<SettingsIcon />}
-        />
+        /> */}
       </SideBarItemWrapper>
       <SidebarBottomWrapper>
         <ProfileWrapper>

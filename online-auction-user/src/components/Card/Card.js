@@ -19,7 +19,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo.png";
 
-const Cards = () => {
+const Cards = ({ details }) => {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
   const navigate = useNavigate();
@@ -63,7 +63,7 @@ const Cards = () => {
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
+            <img src="url_to_your_image" alt="avatar" />{" "}
           </Avatar>
         }
         action={
@@ -103,8 +103,8 @@ const Cards = () => {
                         onKeyDown={handleListKeyDown}
                       >
                         <MenuItem onClick={handleClose}>Profile</MenuItem>
-                        <MenuItem onClick={handleClose}>My account</MenuItem>
-                        <MenuItem onClick={handleClose}>Logout</MenuItem>
+                        {/* <MenuItem onClick={handleClose}>My account</MenuItem> */}
+                        {/* <MenuItem onClick={handleClose}>Logout</MenuItem> */}
                       </MenuList>
                     </ClickAwayListener>
                   </Paper>
@@ -116,12 +116,15 @@ const Cards = () => {
         title="Shrimp and Chorizo Paella"
         subheader="September 14, 2016 "
       />
-      <CardMedia component="img" height="194" image={Logo} alt="Paella dish" />
+      <CardMedia
+        component="img"
+        height="194"
+        image={details.product_image}
+        alt="Paella dish"
+      />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
+          {details.description}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -159,8 +162,8 @@ const Cards = () => {
           sx={{
             fontSize: 1,
           }}
-          title="Shrimp and Chorizo Paella"
-          subheader="September 14, 2016 "
+          title={details.name}
+          subheader={details.start_time}
         ></CardHeader>
       </CardActions>
     </Card>

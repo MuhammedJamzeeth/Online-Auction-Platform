@@ -1,13 +1,14 @@
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import { IconButton } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import Logo from "../../assets/logo.png";
 import DropdownMenu from "../Dropdown/DropdownMenu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Profile from "../Profile/Profile";
 import { useState } from "react";
 import { Link } from "react-router-dom"; // Import Link from React Router
+import useProduct from "../../hooks/useProduct";
 
 import {
   Image,
@@ -23,14 +24,24 @@ import {
   // UserName,
 } from "./NavBar.styles";
 const NavBar = ({ toggleSideBar }) => {
-  const categories = [
-    { label: "Electronics", link: "#" },
-    { label: "Clothing", link: "#" },
-    { label: "Books", link: "#" },
-    { label: "Toys", link: "#" },
-  ];
   const [isOpen, setIsOpen] = useState(false);
   const user = JSON.parse(localStorage.getItem("user"));
+
+  const { getCategory } = useProduct();
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const catData = await getCategory();
+        setCategories(catData);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -69,13 +80,11 @@ const NavBar = ({ toggleSideBar }) => {
           </h1>
           <DropdownContent isOpen={isOpen}>
             {categories.map((option, index) => (
-              <a key={index} href={option.link}>
-                {option.label}
-              </a>
+              <p key={index}>{option.name}</p>
             ))}
           </DropdownContent>
         </Dropdown>
-        <Link to="/about" style={{ textDecoration: "none", color: "inherit" }}>
+        {/* <Link to="/about" style={{ textDecoration: "none", color: "inherit" }}>
           <h1
             style={{
               paddingLeft: 10,
@@ -91,7 +100,7 @@ const NavBar = ({ toggleSideBar }) => {
           }}
         >
           Contact us
-        </h1>
+        </h1> */}
       </NavLeft>
       <NavRight>
         {/* <IconButton>

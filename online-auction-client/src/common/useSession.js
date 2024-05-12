@@ -21,7 +21,7 @@ const useSession = () => {
       // console.log(decodedJwt);
       // console.log(decodedJwt.exp * 1000);
       console.log(Date.now());
-      if (decodedJwt.exp * 1000 < Date.now()) {
+      if (decodedJwt?.exp * 1000 < Date.now()) {
         setSessionExpired(true);
       } else {
         setSessionExpired(false);

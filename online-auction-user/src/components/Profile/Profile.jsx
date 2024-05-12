@@ -73,8 +73,8 @@ const Profile = () => {
       >
         <Avatar sx={{ width: 35, height: 35 }} src={user?.avatar} />
         <UserDetails>
-          {user && <UserName>{decodedJwt.sub}</UserName>}
-          {user && <Email>{user.email} 11</Email>}
+          {user && <UserName>{decodedJwt?.sub}</UserName>}
+          {user && <Email>{user.email}</Email>}
         </UserDetails>
       </ProfileContainer>
       <Popper

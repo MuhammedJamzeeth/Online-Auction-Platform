@@ -85,6 +85,7 @@ public class ProductController {
             product.setCurrentPrice(Double.parseDouble(currentPrice));
             product.setStartTime(LocalDateTime.parse(startTime));
             product.setEndTime(LocalDateTime.parse(endTime));
+            product.setCategory();
 //            product.setSelectedCategory(selectedCategory);
             product.setImage(imageBytes);
 
