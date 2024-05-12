@@ -39,15 +39,18 @@ const Home = () => {
     fetchData();
   }, []);
 
-  const handleSearch = () => {
-    // Perform search logic here
-    // For now, let's just filter products based on searchQuery
-    const filteredProducts = getProduct().filter((product) =>
-      product.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    setProducts(filteredProducts);
+  const handleSearch = async () => {
+    try {
+      const proData = await getProduct();
+      const filteredProducts = proData.filter((product) =>
+        product.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setProducts(filteredProducts);
+    } catch (error) {
+      console.error("Error searching products:", error);
+    }
   };
-
+  
   const images = [s1, s2, s3];
   return (
     <>
@@ -105,6 +108,9 @@ const Home = () => {
             justifyContent: "space-between",
             alignItems: "center",
             margin: 20,
+            flexWrap: "wrap",
+            
+            // flexDirection: "row"
           }}
         >
           {products.map((product) => (

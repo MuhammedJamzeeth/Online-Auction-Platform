@@ -73,6 +73,7 @@ public class ProductController {
             @RequestParam("endTime") String endTime,
             @RequestParam( defaultValue = "Toys") String selectedCategory,
             @RequestParam( defaultValue = "1") Long categoryId,
+            @RequestParam(defaultValue = "") String userName,
             @RequestParam("image") MultipartFile image) {
 
         try {
@@ -85,7 +86,9 @@ public class ProductController {
             product.setCurrentPrice(Double.parseDouble(currentPrice));
             product.setStartTime(LocalDateTime.parse(startTime));
             product.setEndTime(LocalDateTime.parse(endTime));
-            product.setCategory();
+            product.setUserName(userName);
+
+
 //            product.setSelectedCategory(selectedCategory);
             product.setImage(imageBytes);
 

@@ -28,6 +28,7 @@
         private LocalDateTime endTime;
 
         private String selectedCategory;
+        private String userName;
 
         @ManyToOne
         @JoinColumn(name = "category_id") // Name of the foreign key column in the product table

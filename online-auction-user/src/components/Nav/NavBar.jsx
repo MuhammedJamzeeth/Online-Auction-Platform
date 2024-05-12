@@ -10,6 +10,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom"; // Import Link from React Router
 import useProduct from "../../hooks/useProduct";
 
+
+
 import {
   Image,
   MenuWrapper,
@@ -110,9 +112,28 @@ const NavBar = ({ toggleSideBar }) => {
           <NotificationsNoneOutlinedIcon />
         </IconButton> */}
         {user ? (
+          <>
           <ProfileWrapper>
+            
+           
             <Profile />
+
           </ProfileWrapper>
+            
+           <Link
+              to="/addProducts"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <h1
+                style={{
+                  paddingLeft: 10,
+                }}
+              >
+                AddProducts
+              </h1>
+            </Link>
+            </>
+          
         ) : (
           <>
             <Link

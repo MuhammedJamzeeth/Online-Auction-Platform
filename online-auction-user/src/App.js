@@ -18,6 +18,7 @@ import Bids from "./pages/Bids/Bids";
 import AddProducts from "./pages/AddProducts/AddProducts";
 import AboutUs from "./pages/AboutUs/AboutUs";
 
+
 function App() {
   const dispatch = useDispatch();
   const currentUserValue = useSelector(currentUser);
@@ -47,10 +48,11 @@ function App() {
           <Route path="products" element={<Products />}></Route>
           <Route path="customers" element={<Customer />}></Route>
           <Route path="settings" element={<Profile />}></Route>
-          <Route path="/addProducts" element={<AddProducts />}></Route>
+        
         </Route>
         <Route path="/bid" element={<Bids />}></Route>
         <Route path="about" element={<AboutUs/>}/> <Route/>
+        <Route path="/addProducts" element={<AddProducts />}></Route>
         <Route
           element={!currentUserValue ? <Login /> : <Navigate to="/" />}
           path="login"

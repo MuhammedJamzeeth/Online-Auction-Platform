@@ -113,13 +113,13 @@ const Cards = ({ details }) => {
             </Popper>
           </>
         }
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016 "
+        title={details.userName}
+        subheader={details.startTime}
       />
       <CardMedia
         component="img"
         height="194"
-        image={details.product_image}
+        image={`data:image/jpeg;base64,${details.image}`}
         alt="Paella dish"
       />
       <CardContent>
