@@ -75,7 +75,7 @@ const NavBar = ({ toggleSideBar }) => {
             ))}
           </DropdownContent>
         </Dropdown>
-        <Link to="/about" style={{ textDecoration: "none", color: "inherit" }}>
+        <Link to="about" style={{ textDecoration: "none", color: "inherit" }}>
           <h1
             style={{
               paddingLeft: 10,
