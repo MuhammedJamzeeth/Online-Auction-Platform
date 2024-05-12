@@ -24,6 +24,7 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findAll().stream().map(this::mapToDTO).collect(Collectors.toList());
     }
 
+    //getting needed field form db set it to ordermodel
     private OrderModel mapToDTO(Order order) {
         return OrderModel.builder()
                 .orderId(order.getOrder_id())

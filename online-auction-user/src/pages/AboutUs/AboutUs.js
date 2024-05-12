@@ -1,17 +1,17 @@
 import React from 'react';
 import NavBar from '../../components/Nav/NavBar';
-import { Container, Typography, Box, styled } from '@mui/material'; // Import Box for Flexbox
+import { Container, Typography, Box, styled } from '@mui/material'; 
 import FootBar from '../../components/Footer/NavBar';
-import image from '../../assets/image.png'; // Import image from assets folder
+import image from '../../assets/image.png'; 
 
-// Custom styled component for the image with hover animations
+//img container
 const ImageContainer = styled('div')({
   width: '50%', // Set image width to 50% of container width
     borderRadius: '20px', 
-  overflow: 'hidden', // Hide overflow to ensure image doesn't exceed its container
+    overflow: 'hidden', 
     '& img': {
         width: '100%',
-        transition: 'transform 0.3s ease', // Add transition for hover effect
+        transition: 'transform 0.3s ease', 
         '&:hover': {
         transform: 'scale(1.1)', // Scale up image on hover
         },
@@ -39,7 +39,7 @@ const ImageContainer = styled('div')({
             </ImageContainer>
             
             {/* Text Container */}
-            <Box sx={{ width: '50%', padding: '0 20px' }}> {/* Adjust padding as needed */}
+            <Box sx={{ width: '50%', padding: '0 20px' }}> 
             <Typography variant="h4" sx={{ marginBottom: 2 }}>
                 Welcome to our Online Auction Platform!
             </Typography>
