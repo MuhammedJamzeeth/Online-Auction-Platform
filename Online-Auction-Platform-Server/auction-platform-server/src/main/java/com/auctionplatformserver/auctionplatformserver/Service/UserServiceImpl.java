@@ -29,6 +29,7 @@ public class UserServiceImpl implements UserService{
 
     }
 
+    //geting the customer list based on role
     @Override
     public List<User> getAllCustomers() {
         return userRepository.findAllByRole(Role.USER);
